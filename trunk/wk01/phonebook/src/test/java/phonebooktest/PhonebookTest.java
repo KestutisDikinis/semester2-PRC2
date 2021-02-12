@@ -37,7 +37,7 @@ public class PhonebookTest {
 
     @Test
     public void phonebookSearchByNumberNotFound() {
-        assertThat(phonebook.searchByNumber("02-444123"))
+        assertThat(phonebook.searchByNumber("02-444123").getPhoneNumber())
                 .as("search for number not present should return null")
                 .isNull();
     }

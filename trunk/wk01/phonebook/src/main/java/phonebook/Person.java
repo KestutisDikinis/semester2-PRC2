@@ -26,8 +26,4 @@ public class Person {
     public void setAddress(String address) {
         this.address = address;
     }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
 }
