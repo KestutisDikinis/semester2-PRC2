@@ -6,6 +6,15 @@ package firstcontact;
  */
 public class Greeting {
 
-    //TODO
-    
+    String name;
+
+    public Greeting(String name) {
+        this.name = name;
+    }
+
+    public String greet() {
+        return "Hello "+name;
+    }
+
+
 }

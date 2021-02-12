@@ -12,7 +12,11 @@ public class GreetingTest {
     @Test
     void firstContact() {
         //TODO implement firstContact
-        fail("firstContact completed, Your know waht to do");
+        Greeting g = new Greeting("Johnny");
+        String greet = g.greet();
+        assertThat(greet)
+                .as("expecting polity greeting")
+                .contains("Hello", "Johnny");
     }
 
 }
