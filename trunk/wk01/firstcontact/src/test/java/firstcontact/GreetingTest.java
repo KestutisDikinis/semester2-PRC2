@@ -11,6 +11,7 @@ public class GreetingTest {
 
     @Test
     void firstContact() {
+
         //TODO implement firstContact
         Greeting g = new Greeting("Johnny");
         String greet = g.greet();
