@@ -12,6 +12,7 @@ public class Greeting {
         this.name = name;
     }
 
+
     public String greet() {
         return "Hello "+name;
     }
