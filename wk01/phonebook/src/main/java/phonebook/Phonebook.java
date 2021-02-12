@@ -11,26 +11,30 @@ import java.util.Map;
 public class Phonebook {
 
     //TODO add field(s)
+    HashMap<String, Person> contacts;
     
 
     public Phonebook() {
-        //TODO 
-        
+        contacts = new HashMap<>();
     }
 
     public void addEntry( String name, String number ) {
-        //TODO
+        Person person = new Person(name,number);
+        contacts.put(name, person);
+        contacts.put(number,person);
         
     }
 
-    public String searchByName( String name ) {
-        //TODO 
-        return null;
+    public Person searchByName( String name ) {
+
+        return contacts.get(name);
+
     }
 
-    public String searchByNumber( String number ) {
-        //TODO 
-        return null;
+    public Person searchByNumber( String number ) {
+
+        return contacts.get(number);
+
     }
 
     public String getName( String theName ) {
@@ -39,13 +43,15 @@ public class Phonebook {
     }
 
     public void addAddress( String name, String address ) {
-        //TODO 
+        contacts.get(name).setAddress(address);
         
     }
 
     public void deleteEntry( String name ) {
-        //TODO 
-        
+
+        String number = contacts.get(name).getPhoneNumber();
+        contacts.remove(name);
+        contacts.remove(number);
     }
 
 }
