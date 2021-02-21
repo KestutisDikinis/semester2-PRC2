@@ -9,7 +9,13 @@ package minibar;
 public class Guest {
 
     //TODO  15 implement Guest fields, getters and setters.
-    
+    double capasity;
+    double alreadyConsumed;
+
+    public Guest(double capasity) {
+        this.capasity = capasity;
+    }
+
     /**
      * *
      * Drinks a beer, optionally get drunk, Hickup.
@@ -17,8 +23,16 @@ public class Guest {
      * @param beer to consume
      * @throws DrunkenException when overfilled.
      */
-    public void drink( Beer beer ) throws DrunkenException {
+    public Guest drink( Beer beer ) throws DrunkenException {
         //TODO 16 implement Guest.drink
-        
+        if(alreadyConsumed + beer.getVolume() > capasity){
+            throw new DrunkenException();
+        }
+        alreadyConsumed += beer.getVolume();
+        return this;
+    }
+
+    public double getAlreadyConsumed() {
+        return alreadyConsumed;
     }
 }

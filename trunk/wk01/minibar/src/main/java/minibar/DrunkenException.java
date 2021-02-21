@@ -6,6 +6,8 @@ package minibar;
  * @author Pia Erbrath
  */
 public class DrunkenException extends RuntimeException {
-    //TODO 02 create specific runtime exception class
-    
+
+    public DrunkenException() {
+        super("Guest is drunk, cannot drink more");
+    }
 }

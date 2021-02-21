@@ -33,8 +33,12 @@ public class Stock {
      */
     public Beer draw( double volume ) throws
             EmptyStockException {
+        if(fill < volume){
+            throw new EmptyStockException();
+        }
+        fill -= volume;
         //TODO 18 implement  Stock.draw(Volume, LocalTime)
-        return null;
+        return new Beer(volume);
     }
 
     public double getLeft() {
