@@ -22,7 +22,11 @@ public class Barkeeper {
     public Beer tapBeer( Stock stock, Guest orderer, double volume ) throws
             EmptyStockException {
         //TODO 14 implement draw
-        return null;
+        if(stock.getLeft() < volume){
+            throw new EmptyStockException();
+        }
+        return new Beer(volume);
+
     }
 
 }
