@@ -22,7 +22,7 @@ public class BookEntryTest {
 
     @Test
     public void getPhoneNumberTest() {
-        assertThat(bookEntry.getPhoneNumber()).isEqualTo("1234567890");
+        assertThat(bookEntry.getPhoneNumber()).contains("1234567890");
     }
 
     @Test
