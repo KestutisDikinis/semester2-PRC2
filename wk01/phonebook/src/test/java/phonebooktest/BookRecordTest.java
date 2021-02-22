@@ -10,22 +10,22 @@ public class BookRecordTest {
     BookRecord bookRecord =new BookRecord("Kestutis", "1234567890");
 
     @Test
-    void getNameTest() {
+    public void getNameTest() {
         assertThat(bookRecord.getName()).isEqualTo("Kestutis");
     }
 
     @Test
-    void getAddressNotSetTest() {
+    public void getAddressNotSetTest() {
         assertThat(bookRecord.getAddress()).isNull();
     }
 
     @Test
-    void getPhoneNumberTest() {
+    public void getPhoneNumberTest() {
         assertThat(bookRecord.getPhoneNumber()).isEqualTo("1234567890");
     }
 
     @Test
-    void setAddressTest() {
+    public void setAddressTest() {
         bookRecord.setAddress("Sedulinos 55-2");
         assertThat(bookRecord.getAddress()).isEqualTo("Sedulinos 55-2");
     }

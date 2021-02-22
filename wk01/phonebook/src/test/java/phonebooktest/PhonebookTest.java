@@ -1,7 +1,9 @@
 package phonebooktest;
 
 import phonebook.Phonebook;
+
 import static org.assertj.core.api.Assertions.*;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -9,18 +11,22 @@ import org.junit.jupiter.api.Test;
  * @author urs
  */
 public class PhonebookTest {
-    //TODO write tests
-    Phonebook phonebook = new Phonebook();
+
+    Phonebook phonebook;
+    @BeforeEach
+    void setUp(){
+        phonebook = new Phonebook();
+    }
 
     @Test
-    void EntryNotFoundTest(){
+    public void EntryNotFoundTest() {
         assertThat(phonebook.searchByName("Jukka"))
                 .as("Person is not present in the list")
                 .isNull();
     }
 
     @Test
-    void addContactTest(){
+    public void addContactTest() {
         phonebook.addEntry("Pekka", "040-123456");
         assertThat(phonebook.searchByName("Pekka").getPhoneNumber())
                 .as("An added person, phone number should be found")
@@ -43,12 +49,12 @@ public class PhonebookTest {
     }
 
     @Test
-    public void phonebookSearchAddress(){
-        phonebook.addEntry( "Pekka", "040-123456" );
-        phonebook.addAddress( "Pekka", "Hulsterweg 6, Venlo" );
-        assertThat(phonebook.searchByName( "Pekka" ).getAddress())
+    public void phonebookSearchAddress() {
+        phonebook.addEntry("Pekka", "040-123456");
+        phonebook.addAddress("Pekka", "Hulsterweg 6, Venlo");
+        assertThat(phonebook.searchByName("Pekka").getAddress())
                 .as("after add, parts of the address required")
-                .contains( "Hulsterweg 6", "Venlo" );
+                .contains("Hulsterweg 6", "Venlo");
     }
 
     @Test
