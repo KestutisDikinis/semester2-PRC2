@@ -9,7 +9,7 @@ import java.util.HashMap;
  */
 public class Phonebook {
 
-    HashMap<String, BookRecord> contacts;
+    HashMap<String, BookEntry> contacts;
 
 
     public Phonebook() {
@@ -17,19 +17,19 @@ public class Phonebook {
     }
 
     public void addEntry(String name, String number) {
-        BookRecord bookRecord = new BookRecord(name, number);
-        contacts.put(name, bookRecord);
-        contacts.put(number, bookRecord);
+        BookEntry bookEntry = new BookEntry(name, number);
+        contacts.put(name, bookEntry);
+        contacts.put(number, bookEntry);
 
     }
 
-    public BookRecord searchByName(String name) {
+    public BookEntry searchByName(String name) {
 
         return contacts.get(name);
 
     }
 
-    public BookRecord searchByNumber(String number) {
+    public BookEntry searchByNumber(String number) {
 
         return contacts.get(number);
 
