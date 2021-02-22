@@ -39,7 +39,8 @@ public class PhonebookTest {
     @Test
     public void phonebookSearchByNumber() {
         phonebook.addEntry("Pekka", "040-123456");
-        assertThat(phonebook.searchByNumber("040-123456").getName())
+        BookEntry entry = phonebook.searchByName("Pekka");
+        assertThat(entry.getName())
                 .as("search by number should return person's name")
                 .contains("Pekka");
     }
