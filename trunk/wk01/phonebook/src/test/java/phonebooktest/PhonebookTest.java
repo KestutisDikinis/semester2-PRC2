@@ -29,7 +29,7 @@ public class PhonebookTest {
     @Test
     public void addContactTest() {
         phonebook.addEntry("Pekka", "040-123456");
-        assertThat(phonebook.searchByName("Pekka").getName())
+        assertThat(phonebook.searchByName("Pekka").getPhoneNumber())
                 .as("An added person, phone number should be found")
                 .isEqualTo("040-123456");
     }
@@ -55,7 +55,7 @@ public class PhonebookTest {
         phonebook.addAddress("Pekka", "Hulsterweg 6, Venlo");
         assertThat(phonebook.searchByName("Pekka").getAddress())
                 .as("after add, parts of the address required")
-                .isEqualTo("Hulsterweg 6", "Venlo");
+                .isEqualTo("Hulsterweg 6, Venlo");
     }
 
     @Test
