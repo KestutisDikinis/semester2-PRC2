@@ -20,14 +20,14 @@ public class PhonebookTest {
     }
 
     @Test
-    public void EntryNotFoundTest() {
+    public void phonebookSearchByNameNotFound() {
         assertThat(phonebook.searchByName("Jukka"))
                 .as("Person is not present in the list")
                 .isNull();
     }
 
     @Test
-    public void addContactTest() {
+    public void phonebookAddsEntry() {
         phonebook.addEntry("Pekka", "040-123456");
         assertThat(phonebook.searchByName("Pekka").getPhoneNumber())
                 .as("An added person, phone number should be found")
@@ -50,12 +50,12 @@ public class PhonebookTest {
     }
 
     @Test
-    public void phonebookSearchAddress() {
-        phonebook.addEntry("Pekka", "040-123456");
-        phonebook.addAddress("Pekka", "Hulsterweg 6, Venlo");
-        assertThat(phonebook.searchByName("Pekka").getAddress())
+    public void phonebookSearchAddress(){
+        phonebook.addEntry( "Pekka", "040-123456" );
+        phonebook.addAddress( "Pekka", "Hulsterweg 6, Venlo" );
+        assertThat(phonebook.searchByName( "Pekka" ).getAddress())
                 .as("after add, parts of the address required")
-                .contains("Hulsterweg 6, Venlo");
+                .contains( "Hulsterweg 6", "Venlo" );
     }
 
     @Test
