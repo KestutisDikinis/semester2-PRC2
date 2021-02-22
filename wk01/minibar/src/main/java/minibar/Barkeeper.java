@@ -25,7 +25,8 @@ public class Barkeeper {
         if(stock.getLeft() < volume){
             throw new EmptyStockException();
         }
-        return new Beer(volume);
+
+        return stock.draw(volume);
 
     }
 
