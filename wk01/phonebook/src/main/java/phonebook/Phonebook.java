@@ -2,7 +2,6 @@ package phonebook;
 
 import static java.lang.String.format;
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  *
@@ -10,7 +9,7 @@ import java.util.Map;
  */
 public class Phonebook {
 
-    HashMap<String, Person> contacts;
+    HashMap<String, BookRecord> contacts;
     
 
     public Phonebook() {
@@ -18,19 +17,19 @@ public class Phonebook {
     }
 
     public void addEntry( String name, String number ) {
-        Person person = new Person(name,number);
-        contacts.put(name, person);
-        contacts.put(number,person);
+        BookRecord bookRecord = new BookRecord(name,number);
+        contacts.put(name, bookRecord);
+        contacts.put(number, bookRecord);
         
     }
 
-    public Person searchByName( String name ) {
+    public BookRecord searchByName(String name ) {
 
         return contacts.get(name);
 
     }
 
-    public Person searchByNumber( String number ) {
+    public BookRecord searchByNumber(String number ) {
 
         return contacts.get(number);
 
