@@ -14,7 +14,7 @@ public class GuestTest {
     }
 
     @Test
-    void guestIsFull() throws EmptyStockException {
+    void guestIsFull() {
         Beer beer = new Beer(5);
         guest.drink(beer);
         assertThatThrownBy(() -> guest.drink(beer)).isInstanceOf(DrunkenException.class);
