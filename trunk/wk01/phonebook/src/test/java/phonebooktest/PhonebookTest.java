@@ -13,8 +13,9 @@ import org.junit.jupiter.api.Test;
 public class PhonebookTest {
 
     Phonebook phonebook;
+
     @BeforeEach
-    void setUp(){
+    void setUp() {
         phonebook = new Phonebook();
     }
 
