@@ -33,7 +33,7 @@ public class PhonebookTest {
         String entry = phonebook.searchByName("Pekka").getName();
         assertThat(entry)
                 .as("An added person, phone number should be found")
-                .contains("040-123456");
+                .contains("Pekka");
     }
 
     @Test
