@@ -1,5 +1,6 @@
 package phonebooktest;
 
+import phonebook.BookRecord;
 import phonebook.Phonebook;
 
 import static org.assertj.core.api.Assertions.*;
@@ -29,7 +30,8 @@ public class PhonebookTest {
     @Test
     public void addContactTest() {
         phonebook.addEntry("Pekka", "040-123456");
-        assertThat(phonebook.searchByName("Pekka").getPhoneNumber())
+        BookRecord record = phonebook.searchByName("Pekka");
+        assertThat(record.getPhoneNumber())
                 .as("An added person, phone number should be found")
                 .contains("040-123456");
     }
