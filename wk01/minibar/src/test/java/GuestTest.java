@@ -19,4 +19,10 @@ public class GuestTest {
         guest.drink(beer);
         assertThatThrownBy(() -> guest.drink(beer)).isInstanceOf(DrunkenException.class);
     }
+
+    @Test
+    void amountAlreadyConsumedTest(){
+        guest.drink(new Beer(2));
+        assertThat(guest.getAlreadyConsumed()).isEqualTo(2);
+    }
 }
