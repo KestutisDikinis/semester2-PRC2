@@ -11,6 +11,10 @@ import static org.assertj.core.api.Assertions.*;
  */
 public class SimpleQueueTest {
 
-    //TODO
+
+    @Test
+    void queueIsGeneric(){
+
+    }
     
 }
