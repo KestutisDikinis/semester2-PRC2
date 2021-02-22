@@ -1,6 +1,5 @@
 package phonebooktest;
 
-import phonebook.BookEntry;
 import phonebook.Phonebook;
 
 import static org.assertj.core.api.Assertions.*;
@@ -30,19 +29,17 @@ public class PhonebookTest {
     @Test
     public void addContactTest() {
         phonebook.addEntry("Pekka", "040-123456");
-        BookEntry record = phonebook.searchByName("Pekka");
-        assertThat(record.getPhoneNumber())
+        assertThat(phonebook.searchByName("Pekka").getName())
                 .as("An added person, phone number should be found")
-                .contains("040-123456");
+                .isEqualTo("040-123456");
     }
 
     @Test
     public void phonebookSearchByNumber() {
         phonebook.addEntry("Pekka", "040-123456");
-        BookEntry entry = phonebook.searchByName("Pekka");
-        assertThat(entry.getName())
+        assertThat(phonebook.searchByNumber("040-123456").getName())
                 .as("search by number should return person's name")
-                .contains("Pekka");
+                .isEqualTo("Pekka");
     }
 
     @Test
@@ -58,7 +55,7 @@ public class PhonebookTest {
         phonebook.addAddress("Pekka", "Hulsterweg 6, Venlo");
         assertThat(phonebook.searchByName("Pekka").getAddress())
                 .as("after add, parts of the address required")
-                .contains("Hulsterweg 6", "Venlo");
+                .isEqualTo("Hulsterweg 6", "Venlo");
     }
 
     @Test
