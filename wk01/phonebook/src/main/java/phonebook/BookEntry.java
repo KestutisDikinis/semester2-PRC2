@@ -1,12 +1,12 @@
 package phonebook;
 
-public class BookRecord {
+public class BookEntry {
 
     String name;
     String address;
     String phoneNumber;
 
-    public BookRecord(String name, String phoneNumber) {
+    public BookEntry(String name, String phoneNumber) {
         this.name = name;
         this.phoneNumber = phoneNumber;
     }
