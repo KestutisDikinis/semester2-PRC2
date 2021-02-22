@@ -2,12 +2,13 @@ package phonebooktest;
 
 import org.junit.jupiter.api.Test;
 import phonebook.BookRecord;
+
 import static org.assertj.core.api.Assertions.*;
 
 
 public class BookRecordTest {
 
-    BookRecord bookRecord =new BookRecord("Kestutis", "1234567890");
+    BookRecord bookRecord = new BookRecord("Kestutis", "1234567890");
 
     @Test
     public void getNameTest() {
