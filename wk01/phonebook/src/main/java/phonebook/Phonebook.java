@@ -1,51 +1,54 @@
 package phonebook;
 
 import static java.lang.String.format;
+
 import java.util.HashMap;
-import java.util.Map;
 
 /**
- *
  * @author urs
  */
 public class Phonebook {
 
-    //TODO add field(s)
+    HashMap<String, BookEntry> contacts;
 
 
     public Phonebook() {
-        //TODO
+        contacts = new HashMap<>();
+    }
+
+    public void addEntry(String name, String number) {
+        BookEntry bookEntry = new BookEntry(name, number);
+        contacts.put(name, bookEntry);
+        contacts.put(number, bookEntry);
 
     }
 
-    public void addEntry( String name, String number ) {
-        //TODO
+    public BookEntry searchByName(String name) {
+        if(contacts.containsKey(name)){
 
-    }
-
-    public String searchByName( String name ) {
-        //TODO
+            return contacts.get(name);
+        }
         return null;
     }
 
-    public String searchByNumber( String number ) {
-        //TODO
+    public BookEntry searchByNumber(String number) {
+        if(contacts.containsKey(number)) {
+            return contacts.get(number);
+        }
         return null;
     }
 
-    public String getName( String theName ) {
-        //TODO
-        return null;
+    public void addAddress(String name, String address) {
+        if(contacts.containsKey(name)) {
+            contacts.get(name).setAddress(address);
+        }
     }
 
-    public void addAddress( String name, String address ) {
-        //TODO
+    public void deleteEntry(String name) {
 
-    }
-
-    public void deleteEntry( String name ) {
-        //TODO
-
+        String number = contacts.get(name).getPhoneNumber();
+        contacts.remove(name);
+        contacts.remove(number);
     }
 
 }
