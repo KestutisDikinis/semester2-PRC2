@@ -24,20 +24,24 @@ public class Phonebook {
     }
 
     public BookEntry searchByName(String name) {
+        if(contacts.containsKey(name)){
 
-        return contacts.get(name);
-
+            return contacts.get(name);
+        }
+        return null;
     }
 
     public BookEntry searchByNumber(String number) {
-
-        return contacts.get(number);
-
+        if(contacts.containsKey(number)) {
+            return contacts.get(number);
+        }
+        return null;
     }
 
     public void addAddress(String name, String address) {
-        contacts.get(name).setAddress(address);
-
+        if(contacts.containsKey(name)) {
+            contacts.get(name).setAddress(address);
+        }
     }
 
     public void deleteEntry(String name) {
