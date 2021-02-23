@@ -27,7 +27,7 @@ public class BarKeeperTest {
 
     @Test
     void overdrawThrowsExeption() throws EmptyStockException {
-        keeper.tapBeer(stock,guest,4);
+        stock.draw(4);
         assertThatThrownBy(() -> keeper.tapBeer(stock,guest,4)).isInstanceOf(EmptyStockException.class);
     }
 }
