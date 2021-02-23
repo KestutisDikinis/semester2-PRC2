@@ -2,6 +2,7 @@ package phonebook;
 
 import static java.lang.String.format;
 
+import java.awt.print.Book;
 import java.util.HashMap;
 
 /**
@@ -25,14 +26,15 @@ public class Phonebook {
 
     public String searchByName(String name) {
         if(contacts.containsKey(name)){
-            return contacts.get(name).getName();
+            BookEntry entry = contacts.get(name);
+            return entry.getName()+" "+ entry.getPhoneNumber() +" " + entry.getAddress();
         }
         return null;
     }
 
-    public BookEntry searchByNumber(String number) {
+    public String searchByNumber(String number) {
         if(contacts.containsKey(number)) {
-            return contacts.get(number);
+            return contacts.get(number).getName();
         }
         return null;
     }
