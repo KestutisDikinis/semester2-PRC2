@@ -23,10 +23,9 @@ public class Phonebook {
 
     }
 
-    public BookEntry searchByName(String name) {
+    public String searchByName(String name) {
         if(contacts.containsKey(name)){
-
-            return contacts.get(name);
+            return contacts.get(name).getName();
         }
         return null;
     }
