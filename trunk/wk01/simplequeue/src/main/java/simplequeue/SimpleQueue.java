@@ -6,12 +6,46 @@ import java.util.LinkedList;
  *
  * @author Pieter van den Hombergh {@code p.vandehombergh@gmail.com}
  */
-public class SimpleQueue<T> {
+public class SimpleQueue<E> {
     //TODO
-    LinkedList<Node> list = new LinkedList<>();
+    private Node front;
+    private Node rear;
 
+    private int currentSize;
 
-    public boolean isEmpty() {
-        return list.getFirst() == null && list.getLast() == null;
+    public SimpleQueue() {
+        front = null;
+        rear = null;
+        currentSize = 0;
+    }
+
+    public boolean isEmpty(){
+        return currentSize==0;
+    }
+
+    void put(E e){
+        Node oldRear = rear;
+        rear = new Node(e);
+        if(isEmpty()){
+            front = rear;
+        }else{
+            oldRear.next = rear;
+        }
+        currentSize++;
+    }
+
+    public E peek(){
+        return (E) front.data;
+    }
+
+    public E take(){
+        E data = (E) front.data;
+        front=front.next;
+        if(isEmpty()){
+            rear = null;
+        }
+        currentSize--;
+
+        return data;
     }
 }
