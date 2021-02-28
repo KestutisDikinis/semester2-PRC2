@@ -41,9 +41,7 @@ public class SimpleQueue<E> {
     public E take(){
         E data = (E) front.data;
         front=front.next;
-        if(isEmpty()){
-            rear = null;
-        }
+
         currentSize--;
 
         return data;
