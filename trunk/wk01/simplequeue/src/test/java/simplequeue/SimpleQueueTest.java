@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.assertj.core.api.SoftAssertions;
+import org.assertj.core.api.ThrowableAssert;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.*;
 
@@ -61,8 +63,35 @@ public class SimpleQueueTest {
         while (!queue.isEmpty()){
             returns.add(queue.take());
         }
-
         assertThat(returns).containsExactly(values);
     }
-    
+
+    @Test
+    void multipleTestWithIterator(){
+        SimpleQueue<String> queue = new SimpleQueue<>();
+        String[] values= { "Hello", "World", "And", "Some", "Bla", "Di", "Bla" };
+        for (String value : values){
+            queue.put(value);
+        }
+        for(String string : queue){
+            System.out.println(string);
+        }
+
+        assertThat( queue ).containsExactly( values );
+    }
+
+    @Test
+    void throwableTestPeek(){
+        SimpleQueue<String> queue = new SimpleQueue<>();
+        ThrowableAssert.ThrowingCallable code =()->{queue.peek();};
+        assertThatThrownBy(code);
+    }
+
+    @Test
+    void throwableTestTake(){
+        SimpleQueue<String> queue = new SimpleQueue<>();
+        ThrowableAssert.ThrowingCallable code =()->{queue.take();};
+        assertThatThrownBy(code);
+    }
+
 }
