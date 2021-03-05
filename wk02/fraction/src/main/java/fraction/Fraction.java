@@ -1,5 +1,7 @@
 package fraction;
 
+import java.util.Objects;
+
 /**
  * Immutable Fraction : numerator/denominator.
  *
@@ -18,11 +20,12 @@ public class Fraction {
      * numerator, negative allowed.
      */
     //TODO define numerator
+    private int numerator;
     /**
      * denominator, always positive.
      */
     //TODO define denominator
-
+    private int denominator;
     /**
      * Create a Fraction.
      *
@@ -30,11 +33,26 @@ public class Fraction {
      * @param denom denominator
      */
     public Fraction( int num, int denom ) {
-        //TODO implement constructor
-        
+        //TODO implement constructo
+        int d =  gcd(denom,num);
+        num = num/d;
+        denom = denom/d;
+        if(denom < 0 ){
+            if(num< 0){
+                num *= -1;
+                denom *= -1;
+            } else if(num > 0){
+                num *= -1;
+                denom *= -1;
+            }
+        }
+        this.numerator = num;
+        this.denominator =denom;
     }
-    //TODO Implement Fields, constructor and methods
-    
+    public Fraction (int x){
+         this.numerator = x;
+         this.denominator = 1;
+    }
     
     /**
      * Multiply with Fraction.
@@ -43,10 +61,17 @@ public class Fraction {
      * @return new Multiplied Fraction
      */
     public Fraction times( Fraction other ) {
-        return new Fraction(1,1);
+
+        return times(other.getNumerator(),other.getDenominator());
     }
 
-    //TODO
+    public Fraction times(int otherN, int otherD){
+
+        otherN *= this.numerator;
+        otherD *= this.denominator;
+
+        return new Fraction(otherN,otherD);
+    }
 
     /**
      * Compute Greatest Common Divisor. Used to normalize fractions.
@@ -71,12 +96,115 @@ public class Fraction {
         return a;
     }
 
-    //TODO equals and hascode
-    
+    public int getNumerator() {
+        return this.numerator;
+    }
 
-    //TODO tostring
+    public int getDenominator() {
+        return this.denominator;
+    }
 
-    // implement compareto
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Fraction fraction = (Fraction) o;
+        return numerator == fraction.numerator &&
+                denominator == fraction.denominator;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(numerator, denominator);
+    }
+
+    @Override
+    public String toString() {
+        if(numerator%denominator == 0){
+            return ""+numerator/denominator;
+        }
+        if(numerator/denominator >= 1|| numerator/denominator < 0){
+            int wholeNumber = numerator/denominator;
+            int tempNum = numerator;
+            if(numerator < 0){
+                tempNum = -tempNum;
+                tempNum-= denominator;
+                tempNum =- tempNum;
+            }
+            return "("+wholeNumber+"+("+(tempNum-denominator)+"/"+denominator+"))";
+        }
+        return "("+numerator+"/"+denominator+")";
+    }
+
+    public Fraction plus(Fraction f2) {
+        return plus(f2.getNumerator(),f2.getDenominator());
+    }
+
+    public Fraction plus(int otherN, int otherD){
+        int n1, n2;
+        n1 = this.numerator * otherD;
+        n2 = this.denominator * otherN;
+        otherD *= this.denominator;
+        otherN = n1+n2;
+        return new Fraction(otherN,otherD);
+    }
+
+    public Fraction plus(int x){
+        return this.plus(frac(x));
+    }
+
+    public Fraction flip() {
+        return new Fraction(this.denominator,this.numerator);
+    }
+
+    public Fraction minus(Fraction f2) {
+        if(f2.getDenominator() == this.denominator){
+            return new Fraction(this.numerator- f2.getNumerator(),this.denominator);
+        }
+        int numf1, numf2, lcm;
+        lcm = lcm(this.denominator,f2.getDenominator());
+        numf1 = (lcm/this.denominator)*this.numerator;
+        numf2 = (lcm/f2.getDenominator())*f2.getNumerator();
+        Fraction fractionResult = new Fraction(numf1-numf2,lcm);
+        return fractionResult;
+    }
+
+    public Fraction minus(int x){
+        return this.minus(frac(x));
+    }
+
+    public Fraction divideBy(Fraction f2) {
+        return times(f2.flip());
+    }
+
+    public Fraction divideBy(int x){
+        return this.divideBy(frac(x));
+    }
+
+    public int lcm(int a, int b){
+        int result = (a*b)/gcd(a,b);
+        if(result == 0){
+            return 1;
+        }
+        return result;
+    }
+
+    public Fraction negate() {
+        return new Fraction((this.numerator*-1),this.denominator);
+    }
+
+    // TODO implement compareTo
+
 
     //TODO static factory frac(int,int)  and frac(int)
+
+    public static Fraction frac(int a, int b){
+        return new Fraction(a,b);
+    }
+
+    public static Fraction frac(int x){
+        return new Fraction(x);
+    }
+
+
 }
