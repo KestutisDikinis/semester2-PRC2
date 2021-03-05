@@ -27,6 +27,26 @@ public class FractionTest {
      * @param num input
      * @param denom input
      */
+
+    @ParameterizedTest
+    @CsvSource( {
+            //message a,b, num, denom
+            "half ,1,2,1,2",
+            "one third ,2,6,1,3",
+            "minus one half, 9,-18,-1,2",
+            "two negatives, -8, -16, 1,2"
+    } )
+    void testGetters(String message, int a, int b, int num,int denom){
+        Fraction fraction = new Fraction(a,b);
+        SoftAssertions.assertSoftly(softAssertions -> {
+            softAssertions.assertThat(fraction.getNumerator()).
+                    as(message+ " numerator").
+                    isEqualTo(num);
+            softAssertions.assertThat(fraction.getDenominator()).
+                    as(message+ " denominator").
+                    isEqualTo(denom);
+        });
+    }
     //@Disabled( "Think TDD" )
     @ParameterizedTest
     @CsvSource( {
@@ -38,14 +58,27 @@ public class FractionTest {
     } )
     void fractionToString( String message, String expected, int num, int denom ) {
         //TODO create fraction and do assert
-        fail("fractionToString completed succesfully; you know what to do");
+        Fraction fraction = new Fraction(num,denom);
+        assumeThat(fraction.toString())
+                .as(message)
+                 .isEqualTo(expected);
     }
 
     // The compiler does not like code that call non-existing methods, so uncomment once the method has been declared.
-    final Map<String, BiFunction<Fraction, Fraction, Fraction>> ops = Map.of( 
-                        "times", ( f1, f2 ) -> f1.times( f2 )
+    final Map<String, BiFunction<Fraction, Fraction, Fraction>> ops =
+            Map.of(
+                    "times", ( f1, f2 ) -> f1.times( f2 ),
+                    "plus", ( f1, f2) -> f1.plus(f2),
+                    "flip", (f1,f2) -> f1.flip(),
+                    "minus",(f1,f2) -> f1.minus(f2),
+                    "divideBy", (f1,f2) -> f1.divideBy(f2),
+                    "negate",(f1,f2)->f1.negate(),
+                    "timesInt",(f1,f2) -> f1.times(f2),
+                    "plusInt", (f1,f2)->f1.plus(f2),
+                    "divideByInt",(f1,f2)-> f1.divideBy(f2),
+                    "minusInt", (f1,f2)->f1.minus(f2)
             //TODO add more named lamddas to the map
-            
+
             );
 
     /**
@@ -75,8 +108,13 @@ public class FractionTest {
         // ignore the test if opName not found
         assumeThat( op ).isNotNull();
         //TODO create fractions and test op
-        fail( "tFractionOps completed succesfully; you know what to do" );
+        Fraction fraction1 = new Fraction(a,b);
+        Fraction fraction2 = new Fraction(c,d);
+        Fraction fractionResult = op.apply(fraction1,fraction2);
 
+        assertThat(fractionResult.toString())
+                .as(message)
+                .isEqualTo(expected);
     }
 
     /**
@@ -86,7 +124,7 @@ public class FractionTest {
     //@Disabled("Think TDD")
     @Test
     public void tDivideByZeroNotAllowed() {
-        //TODO 
+        //TODO
         fail( "tDivideByZeroNotAllowed completed succesfully; you know what to do" );
     }
 
@@ -131,9 +169,9 @@ public class FractionTest {
     // it is a bit of a pity you can't write (a,b,c) -> (something with a, b, and c)
     // but must use (a) -> (array accessors) .
     // uncomment when you are ready
-    Map<String, MultiIntToObject<Fraction>> expressionMap = Map.of( 
+    Map<String, MultiIntToObject<Fraction>> expressionMap = Map.of(
             //TODO add key value pairs
-            
+
             );
 
     /**
