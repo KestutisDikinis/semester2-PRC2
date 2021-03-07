@@ -37,17 +37,17 @@ public class FractionTest {
             "two negatives, -8, -16, 1,2"
     } )
     void testGetters(String message, int a, int b, int num,int denom){
-        Fraction fraction = new Fraction(a,b);
+        Fraction expected = new Fraction(a,b);
         SoftAssertions.assertSoftly(softAssertions -> {
-            softAssertions.assertThat(fraction.getNumerator()).
+            softAssertions.assertThat(expected.getNumerator()).
                     as(message+ " numerator").
                     isEqualTo(num);
-            softAssertions.assertThat(fraction.getDenominator()).
+            softAssertions.assertThat(expected.getDenominator()).
                     as(message+ " denominator").
                     isEqualTo(denom);
         });
     }
-    //@Disabled( "Think TDD" )
+
     @ParameterizedTest
     @CsvSource( {
         "whole number, 2, 2, 1 ",
@@ -64,7 +64,6 @@ public class FractionTest {
                  .isEqualTo(expected);
     }
 
-    // The compiler does not like code that call non-existing methods, so uncomment once the method has been declared.
     final Map<String, BiFunction<Fraction, Fraction, Fraction>> ops =
             Map.of(
                     "times", ( f1, f2 ) -> f1.times( f2 ),
@@ -77,7 +76,6 @@ public class FractionTest {
                     "plusInt", (f1,f2)->f1.plus(f2),
                     "divideByInt",(f1,f2)-> f1.divideBy(f2),
                     "minusInt", (f1,f2)->f1.minus(f2)
-            //TODO add more named lamddas to the map
 
             );
 
@@ -124,15 +122,22 @@ public class FractionTest {
     //@Disabled("Think TDD")
     @Test
     public void tDivideByZeroNotAllowed() {
-        //TODO
-        fail( "tDivideByZeroNotAllowed completed succesfully; you know what to do" );
+        assertThatThrownBy(()->{Fraction.frac(6,0).divideBy(0);}).isExactlyInstanceOf(IllegalArgumentException.class);
     }
 
-    //@Disabled("Think TDD")
-    @Test
-    public void tIntAsFrac() {
+
+    @ParameterizedTest
+    @CsvSource( {
+            "6, 6 ",
+            "2, 2",
+            "-3, -3 ",
+            "12, 12",
+            "35, 35 "
+    } )
+    public void tIntAsFrac( String expected, int x) {
         //TODO test frac(int) and indirectly new Fraction(int).
-        fail( "tIntAsFrac completed succesfully; you know what to do" );
+        Fraction fraction = Fraction.frac(x);
+        assertThat(fraction.toString()).isEqualTo(expected);
     }
 
     /**
@@ -171,7 +176,8 @@ public class FractionTest {
     // uncomment when you are ready
     Map<String, MultiIntToObject<Fraction>> expressionMap = Map.of(
             //TODO add key value pairs
-
+            "frac(a,b).times(c)", (a) -> Fraction.frac(a[0],a[1]).times(Fraction.frac(a[2])),
+            "frac(a,b).plus(frac(c,d))", (a) -> Fraction.frac(a[0],a[1]).plus(Fraction.frac(a[2],a[3]))
             );
 
     /**
@@ -197,20 +203,24 @@ public class FractionTest {
         MultiIntToObject<Fraction> expression = expressionMap.get( lambda );
         assumeThat( expression ).isNotNull();
         //TODO get expression and apply on args
-        fail( "tExpression reached end. You know what to do." );
+        Fraction fractionResult = expression.apply(args);
+        assertThat(fractionResult.toString()).isEqualTo(result);
     }
 
     /**
      * Use test helper method {
      *
-     * @see verifyEqualsAndHashCode}
+     * @see verifyEqualsAndHashCode
      *
      */
     //@Disabled("Think TDD")
     @Test
     public void tEqualsHashCode() {
         //TODO create enough fraction objects to invoke helper method verifyEqualsAndHashCode
-        fail( "tEqualsHasCode completed succesfully; you know what to do" );
+        Fraction f1 = Fraction.frac(1,2);
+        Fraction f2 = Fraction.frac(3,4);
+        verifyEqualsAndHashCode(f1.hashCode(),f1.hashCode(),f2.hashCode());
+
     }
 
     /**
@@ -232,7 +242,9 @@ public class FractionTest {
         "greater, 1,2,1,3,1", } )
     public void tComparable( String msg, int a, int b, int c, int d, int signum ) {
         //TODO create fractions and test compareTo
-        fail( "tComparable completed succesfully; you know what to do" );
+        Fraction f1 = Fraction.frac(a,b);
+        Fraction f2 = Fraction.frac(c,d);
+        assertThat(f1.compareTo(f2)).isEqualTo(signum);
     }
 
     /**
@@ -286,18 +298,20 @@ public class FractionTest {
         } );
     }
 
-    //@Disabled("Think TDD")
     @Test
     public void tGetNumerator() {
         //TODO
-        fail( "tGetNumerator completed succesfully; you know what to do" );
+        int a = 2;
+        int b = 3;
+        assertThat(Fraction.frac(a,b).getNumerator()).isEqualTo(a);
     }
 
-    //@Disabled("Think TDD")
     @Test
     public void tGetDenominator() {
         //TODO
-        fail( "tGetDenominator completed succesfully; you know what to do" );
+        int a = 2;
+        int b = 3;
+        assertThat(Fraction.frac(a,b).getDenominator()).isEqualTo(b);
     }
 
     /**

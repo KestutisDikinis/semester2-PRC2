@@ -13,7 +13,7 @@ import java.util.Objects;
  *
  * @author Pieter van den Hombergh
  */
-public class Fraction {
+public class Fraction implements Comparable<Fraction> {
 
 
     /**
@@ -37,6 +37,9 @@ public class Fraction {
         int d =  gcd(denom,num);
         num = num/d;
         denom = denom/d;
+        if(denom == 0){
+            throw new IllegalArgumentException();
+        }
         if(denom < 0 ){
             if(num< 0){
                 num *= -1;
@@ -53,7 +56,8 @@ public class Fraction {
          this.numerator = x;
          this.denominator = 1;
     }
-    
+
+
     /**
      * Multiply with Fraction.
      *
@@ -128,10 +132,12 @@ public class Fraction {
             int tempNum = numerator;
             if(numerator < 0){
                 tempNum = -tempNum;
-                tempNum-= denominator;
+                tempNum -= denominator;
                 tempNum =- tempNum;
+            }else{
+                tempNum -= denominator;
             }
-            return "("+wholeNumber+"+("+(tempNum-denominator)+"/"+denominator+"))";
+            return "("+wholeNumber+"+("+(tempNum)+"/"+denominator+"))";
         }
         return "("+numerator+"/"+denominator+")";
     }
@@ -174,6 +180,9 @@ public class Fraction {
     }
 
     public Fraction divideBy(Fraction f2) {
+        if(f2.getDenominator() == 0){
+            throw new IllegalArgumentException();
+        }
         return times(f2.flip());
     }
 
@@ -207,4 +216,20 @@ public class Fraction {
     }
 
 
+    @Override
+    public int compareTo(Fraction o) {
+        int a = this.numerator;
+        int b = this.denominator;
+        int c = o.getNumerator();
+        int d = o.getDenominator();
+        int Y = a * d - b * c;
+
+        if(Y > 0){
+            return 1;
+        }else if(Y == 0){
+            return 0;
+        }else{
+            return -1;
+        }
+    }
 }
