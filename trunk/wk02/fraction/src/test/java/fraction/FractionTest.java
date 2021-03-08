@@ -237,7 +237,7 @@ public class FractionTest {
         Fraction f3 = frac(2,6);
         Fraction f1 = Fraction.frac(1,3);
         Fraction f2 = Fraction.frac(4,8);
-        verifyEqualsAndHashCode(f3.hashCode(),f1.hashCode(),f2.hashCode());
+        verifyEqualsAndHashCode(f3,f1,f2);
 
     }
 
