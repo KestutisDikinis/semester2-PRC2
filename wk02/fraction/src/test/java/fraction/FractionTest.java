@@ -122,7 +122,7 @@ public class FractionTest {
     //@Disabled("Think TDD")
     @Test
     public void tDivideByZeroNotAllowed() {
-        assertThatThrownBy(()->{Fraction.frac(6,0).divideBy(0);}).isExactlyInstanceOf(IllegalArgumentException.class);
+        assertThatThrownBy(()->{Fraction.frac(6,0);}).isExactlyInstanceOf(IllegalArgumentException.class);
     }
 
 
