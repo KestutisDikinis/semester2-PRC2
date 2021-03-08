@@ -109,15 +109,6 @@ public class Fraction implements Comparable<Fraction> {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Fraction fraction = (Fraction) o;
-        return numerator == fraction.numerator &&
-                denominator == fraction.denominator;
-    }
-
-    @Override
     public int hashCode() {
         return Objects.hash(numerator, denominator);
     }
