@@ -1,7 +1,7 @@
 package fraction;
 
 //uncomment import static
- // import static fraction.Fraction.frac;
+import static fraction.Fraction.frac;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.function.BiFunction;
@@ -202,7 +202,7 @@ public class FractionTest {
         int[] args = stringToInts( input );
         MultiIntToObject<Fraction> expression = expressionMap.get( lambda );
         assumeThat( expression ).isNotNull();
-        //TODO get expression and apply on args
+
         Fraction fractionResult = expression.apply(args);
         assertThat(fractionResult.toString()).isEqualTo(result);
     }
