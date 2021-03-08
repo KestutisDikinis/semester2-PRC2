@@ -180,9 +180,6 @@ public class Fraction implements Comparable<Fraction> {
 
     public int lcm(int a, int b){
         int result = (a*b)/gcd(a,b);
-        if(result == 0){
-            return 1;
-        }
         return result;
     }
 
