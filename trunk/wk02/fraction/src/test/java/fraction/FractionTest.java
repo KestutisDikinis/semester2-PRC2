@@ -23,7 +23,6 @@ public class FractionTest {
     /**
      *
      * @param message per test
-     * @param expected value
      * @param num input
      * @param denom input
      */
@@ -57,7 +56,6 @@ public class FractionTest {
         "one + two fifths, (-1+(-2/5)), 35, -25 "
     } )
     void fractionToString( String message, String expected, int num, int denom ) {
-        //TODO create fraction and do assert
         Fraction fraction = new Fraction(num,denom);
         assertThat(fraction.toString())
                 .as(message)
@@ -126,19 +124,19 @@ public class FractionTest {
     }
 
 
-    @ParameterizedTest
-    @CsvSource( {
-            "6, 6 ",
-            "2, 2",
-            "-3, -3 ",
-            "12, 12",
-            "35, 35 "
-    } )
-    public void tIntAsFrac( String expected, int x) {
-        //TODO test frac(int) and indirectly new Fraction(int).
-        Fraction fraction = Fraction.frac(x);
-        assertThat(fraction.toString()).isEqualTo(expected);
-    }
+//    @ParameterizedTest
+//    @CsvSource( {
+//            "6, 6 ",
+//            "2, 2",
+//            "-3, -3 ",
+//            "12, 12",
+//            "35, 35 "
+//    } )
+//    public void tIntAsFrac( String expected, int x) {
+//        //TODO test frac(int) and indirectly new Fraction(int).
+//        Fraction fraction = Fraction.frac(x);
+//        assertThat(fraction.toString()).isEqualTo(expected);
+//    }
 
     /**
      * Helper to split string separated with "|" to ints.
