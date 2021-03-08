@@ -62,6 +62,25 @@ public class FractionTest {
                 .isEqualTo(expected);
     }
 
+//    Map<String, MultiIntToObject<Fraction>> intOps = Map.of(
+//            //TODO add key value pairs
+//            "frac(a,b).times(c)", (a) -> Fraction.frac(a[0],a[1]).times(Fraction.frac(a[2])),
+//            "frac(a,b).plus(c)", (a) -> Fraction.frac(a[0],a[1]).plus(Fraction.frac(a[2],a[3])),
+//            "frac(a,b).minus(c)", (a) -> Fraction.frac(a[0],a[1]).plus(Fraction.frac(a[2],a[3])),
+//            "frac(a,b).divideBy(c)", (a) -> Fraction.frac(a[0],a[1]).plus(Fraction.frac(a[2],a[3]))
+//    );
+//
+//    @ParameterizedTest
+//    @CsvSource( {
+//            "times, 1, 2, 1 ",
+//            "plus , 5, 6, 3",
+//            "minus, 1, -3, -9 ",
+//            "divideBy, 3, 12, -30",
+//    } )
+//    void opsFrac(){
+//
+//    }
+
     final Map<String, BiFunction<Fraction, Fraction, Fraction>> ops =
             Map.of(
                     "times", ( f1, f2 ) -> f1.times( f2 ),
@@ -174,7 +193,7 @@ public class FractionTest {
     // uncomment when you are ready
     Map<String, MultiIntToObject<Fraction>> expressionMap = Map.of(
             //TODO add key value pairs
-            "frac(a,b).times(c)", (a) -> Fraction.frac(a[0],a[1]).times(Fraction.frac(a[2])),
+            "frac(a,b).times(c)", (a) -> Fraction.frac(a[0],a[1]).times(a[2]),
             "frac(a,b).plus(frac(c,d))", (a) -> Fraction.frac(a[0],a[1]).plus(Fraction.frac(a[2],a[3]))
             );
 

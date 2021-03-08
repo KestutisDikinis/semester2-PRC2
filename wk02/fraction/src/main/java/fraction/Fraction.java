@@ -65,15 +65,17 @@ public class Fraction implements Comparable<Fraction> {
      */
     public Fraction times( Fraction other ) {
 
-        return times(other.getNumerator(),other.getDenominator());
+        int resultNum = this.numerator * other.getNumerator();
+        int resultDenom = this.denominator * other.getDenominator();
+
+        return new Fraction(resultNum,resultDenom);
     }
 
-    public Fraction times(int otherN, int otherD){
+    public Fraction times(int otherN){
 
-        otherN *= this.numerator;
-        otherD *= this.denominator;
+        Fraction fraction = frac(otherN);
 
-        return new Fraction(otherN,otherD);
+        return times(fraction);
     }
 
     /**
