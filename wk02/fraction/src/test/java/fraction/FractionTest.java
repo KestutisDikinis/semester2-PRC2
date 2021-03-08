@@ -234,9 +234,13 @@ public class FractionTest {
     @Test
     public void tEqualsHashCode() {
         //TODO create enough fraction objects to invoke helper method verifyEqualsAndHashCode
-        Fraction f1 = Fraction.frac(1,2);
-        Fraction f2 = Fraction.frac(3,4);
-        verifyEqualsAndHashCode(f1.hashCode(),f1.hashCode(),f2.hashCode());
+        Fraction f3 = frac(2,6);
+        System.out.println("1: "+f3.hashCode());
+        Fraction f1 = Fraction.frac(1,3);
+        System.out.println("2: "+f1.hashCode());
+        Fraction f2 = Fraction.frac(4,8);
+        System.out.println("3: "+f2.hashCode());
+        verifyEqualsAndHashCode(f3.hashCode(),f1.hashCode(),f2.hashCode());
 
     }
 
