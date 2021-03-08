@@ -33,7 +33,6 @@ public class Fraction implements Comparable<Fraction> {
      * @param denom denominator
      */
     public Fraction( int num, int denom ) {
-        //TODO implement constructo
         int d =  gcd(denom,num);
         num = num/d;
         denom = denom/d;

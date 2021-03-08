@@ -59,9 +59,9 @@ public class FractionTest {
     void fractionToString( String message, String expected, int num, int denom ) {
         //TODO create fraction and do assert
         Fraction fraction = new Fraction(num,denom);
-        assumeThat(fraction.toString())
+        assertThat(fraction.toString())
                 .as(message)
-                 .isEqualTo(expected);
+                .isEqualTo(expected);
     }
 
     final Map<String, BiFunction<Fraction, Fraction, Fraction>> ops =
