@@ -155,9 +155,6 @@ public class Fraction implements Comparable<Fraction> {
     }
 
     public Fraction minus(Fraction f2) {
-        if(f2.getDenominator() == this.denominator){
-            return new Fraction(this.numerator- f2.getNumerator(),this.denominator);
-        }
         int numf1, numf2, lcm;
         lcm = lcm(this.denominator,f2.getDenominator());
         numf1 = (lcm/this.denominator)*this.numerator;
@@ -171,13 +168,13 @@ public class Fraction implements Comparable<Fraction> {
     }
 
     public Fraction divideBy(Fraction f2) {
-        if(f2.getDenominator() == 0){
-            throw new IllegalArgumentException();
-        }
         return times(f2.flip());
     }
 
     public Fraction divideBy(int x){
+        if(x == 0){
+            throw new IllegalArgumentException();
+        }
         return this.divideBy(frac(x));
     }
 
