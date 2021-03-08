@@ -47,20 +47,20 @@ public class FractionTest {
         });
     }
 
-    @ParameterizedTest
-    @CsvSource( {
-        "whole number, 2, 2, 1 ",
-        "two thirds, (2/3), 2, 3",
-        "one third, (1/3), -3, -9 ",
-        "minus two fifths, (-2/5), 12, -30",
-        "one + two fifths, (-1+(-2/5)), 35, -25 "
-    } )
-    void fractionToString( String message, String expected, int num, int denom ) {
-        Fraction fraction = new Fraction(num,denom);
-        assertThat(fraction.toString())
-                .as(message)
-                .isEqualTo(expected);
-    }
+//    @ParameterizedTest
+//    @CsvSource( {
+//        "whole number, 2, 2, 1 ",
+//        "two thirds, (2/3), 2, 3",
+//        "one third, (1/3), -3, -9 ",
+//        "minus two fifths, (-2/5), 12, -30",
+//        "one + two fifths, (-1+(-2/5)), 35, -25 "
+//    } )
+//    void fractionToString( String message, String expected, int num, int denom ) {
+//        Fraction fraction = new Fraction(num,denom);
+//        assertThat(fraction.toString())
+//                .as(message)
+//                .isEqualTo(expected);
+//    }
 
     final Map<String, BiFunction<Fraction, Fraction, Fraction>> ops =
             Map.of(
@@ -124,19 +124,19 @@ public class FractionTest {
     }
 
 
-//    @ParameterizedTest
-//    @CsvSource( {
-//            "6, 6 ",
-//            "2, 2",
-//            "-3, -3 ",
-//            "12, 12",
-//            "35, 35 "
-//    } )
-//    public void tIntAsFrac( String expected, int x) {
-//        //TODO test frac(int) and indirectly new Fraction(int).
-//        Fraction fraction = Fraction.frac(x);
-//        assertThat(fraction.toString()).isEqualTo(expected);
-//    }
+    @ParameterizedTest
+    @CsvSource( {
+            "6, 6 ",
+            "2, 2",
+            "-3, -3 ",
+            "12, 12",
+            "35, 35 "
+    } )
+    public void tIntAsFrac( String expected, int x) {
+        //TODO test frac(int) and indirectly new Fraction(int).
+        Fraction fraction = Fraction.frac(x);
+        assertThat(fraction.toString()).isEqualTo(expected);
+    }
 
     /**
      * Helper to split string separated with "|" to ints.
