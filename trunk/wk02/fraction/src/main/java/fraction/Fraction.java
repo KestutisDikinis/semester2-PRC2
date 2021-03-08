@@ -53,6 +53,9 @@ public class Fraction implements Comparable<Fraction> {
         this.denominator =denom;
     }
     public Fraction (int x){
+        if(x == 0){
+            throw new IllegalArgumentException();
+        }
          this.numerator = x;
          this.denominator = 1;
     }
@@ -172,9 +175,6 @@ public class Fraction implements Comparable<Fraction> {
     }
 
     public Fraction divideBy(int x){
-        if(x == 0){
-            throw new IllegalArgumentException();
-        }
         return this.divideBy(frac(x));
     }
 
