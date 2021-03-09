@@ -44,9 +44,27 @@ public class ValidatorTest {
 
 
 
-    @Test
-    void validPassword(){
+    @ParameterizedTest
+    @CsvSource(
+            {
+                    // password, expected result
+                    "Kestas1234!, ''",
+                    "Gabrieleeee1234%, ''",
+                    "Estas1234@, ''",
+                    "Kestasdikinis!^@12!, ''",
+                    "PasswordIsForSureValid1234%!^%!, ''",
+                    "ThisIsAlsoCorrect333&^*!, ''"
+            } )
+    void validPassword(String password, String expected){
+        Validator validator =new Validator();
+        String encodings = "";
+        try{
+            validator.validate(password);
+        }catch (InvalidPasswordException e){
+            encodings = e.getMessage();
+        }
 
+        assertThat(encodings.isEmpty()).isTrue();
     }
     
     // Write parameterized test method
