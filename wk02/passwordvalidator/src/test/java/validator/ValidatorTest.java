@@ -1,5 +1,6 @@
 package validator;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EnumSet;
 
@@ -33,13 +34,23 @@ public class ValidatorTest {
     void invalidPassword(String password, String expected){
         Validator validator = new Validator();
         String encodings = "";
+        ArrayList<String> messages = new ArrayList<>();
+        ArrayList<String> expectedMessages = new ArrayList<>();
+        EnumSet<Flaw> flaws = Flaw.stringToFlawSet(expected);
+        for(Flaw flaw : flaws){
+            expectedMessages.add(flaw.getDescription());
+        }
         try{
             validator.validate(password);
         }catch (InvalidPasswordException e){
             encodings = e.getMessage();
         }
-        assertThat(encodings).isEqualTo(expected);
 
+        flaws = Flaw.stringToFlawSet(encodings);
+        for(Flaw flaw : flaws){
+            messages.add(flaw.getDescription());
+        }
+        assertThat(messages.equals(expectedMessages)).isTrue();
     }
 
 
