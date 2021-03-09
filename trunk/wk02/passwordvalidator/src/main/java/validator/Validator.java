@@ -1,5 +1,6 @@
 package validator;
 
+import java.util.ArrayList;
 import java.util.EnumSet;
 import static java.util.stream.Collectors.joining;
 import static validator.Flaw.*;
@@ -37,7 +38,7 @@ public class Validator {
 
         String encodings = "";
         for (Flaw flaw : flaws){
-            encodings += flaw.getEncoding();
+            encodings += flaw.getDescription()+" ";
         }
         if(!encodings.isEmpty()){
             throw new InvalidPasswordException(encodings);

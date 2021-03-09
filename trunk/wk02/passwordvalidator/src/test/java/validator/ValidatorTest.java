@@ -24,7 +24,6 @@ public class ValidatorTest {
     @CsvSource(
             {
                     // password, expected result
-                    "1234!, Uls",
                     "kestas1234!, U",
                     "kestas1234, U#",
                     "Kestasdikinis!, 8",
@@ -34,23 +33,20 @@ public class ValidatorTest {
     void invalidPassword(String password, String expected){
         Validator validator = new Validator();
         String encodings = "";
-        ArrayList<String> messages = new ArrayList<>();
-        ArrayList<String> expectedMessages = new ArrayList<>();
+        String expectedMessages = "";
         EnumSet<Flaw> flaws = Flaw.stringToFlawSet(expected);
         for(Flaw flaw : flaws){
-            expectedMessages.add(flaw.getDescription());
+            expectedMessages+= flaw.getDescription()+" ";
         }
+
         try{
             validator.validate(password);
         }catch (InvalidPasswordException e){
             encodings = e.getMessage();
         }
 
-        flaws = Flaw.stringToFlawSet(encodings);
-        for(Flaw flaw : flaws){
-            messages.add(flaw.getDescription());
-        }
-        assertThat(messages.equals(expectedMessages)).isTrue();
+        assertThat(encodings).isEqualTo(expectedMessages);
+
     }
 
 
