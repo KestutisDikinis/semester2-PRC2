@@ -74,7 +74,4 @@ public enum Operator {
         return computation.applyAsInt(a,b);
     }
 
-    private String getSymbol() {
-        return symbol;
-    }
 }
