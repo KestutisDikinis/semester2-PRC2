@@ -44,7 +44,7 @@ public class OperatorTest {
                 .isEqualTo(expected);
     }
     @Test
-    void testException(){
-        assertThatThrownBy(() ->Operator.get("^")).isExactlyInstanceOf(UnsupportedOperationException.class);
+    void getQuestionMark(){
+        assertThatThrownBy(() ->Operator.get("?")).isExactlyInstanceOf(UnsupportedOperationException.class);
     }
 }
