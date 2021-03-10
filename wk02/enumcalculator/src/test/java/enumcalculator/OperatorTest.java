@@ -37,7 +37,9 @@ public class OperatorTest {
     } )
     public void testOperator( String message, String symbol, int expected, int a, int b ) {
         // use all inputs in the assertThat
-        //TODO write assertThat statement in parameterized test method
-        fail( "test not yet implemented" );
+        Operator operator = Operator.get(symbol);
+        assertThat(operator.compute(a,b))
+                .as(message)
+                .isEqualTo(expected);
     }
 }
