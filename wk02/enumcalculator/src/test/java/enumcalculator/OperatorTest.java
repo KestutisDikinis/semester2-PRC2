@@ -1,9 +1,10 @@
 package enumcalculator;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.fail;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+
+import static org.assertj.core.api.Assertions.*;
 
 /**
  * Parameterized test for enum operation. Look in [Kaczanowski, ch 3] on how to
@@ -41,5 +42,9 @@ public class OperatorTest {
         assertThat(operator.compute(a,b))
                 .as(message)
                 .isEqualTo(expected);
+    }
+    @Test
+    void testException(){
+        assertThatThrownBy(() ->Operator.get("^")).isExactlyInstanceOf(UnsupportedOperationException.class);
     }
 }
