@@ -1,6 +1,8 @@
 
 package enumcalculator;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.IntBinaryOperator;
 
 /**
@@ -11,8 +13,20 @@ import java.util.function.IntBinaryOperator;
  */
 public enum Operator {
     //TODO define enum values
+    ADD     ("+",(a,b) -> a+b),
+    SUBTRACT("-", (a,b) -> a-b),
+    MULTIPLY("*", (a,b) -> a*b),
+    DIVIDE  ("/", (a,b) -> a/b),
+    POWER   ("**", (a,b) -> (int) Math.pow(a,b));
     ;
-
+    private static Map<String, Operator> operations =
+            new HashMap<>() {{
+                put("+", ADD);
+                put("-", SUBTRACT);
+                put("*", MULTIPLY);
+                put("/", DIVIDE);
+                put("**",POWER);
+            }};
     /**
      * Get the operator using its symbol. This method does a linear search
      * through the values of this enum.
@@ -21,8 +35,10 @@ public enum Operator {
      * @return operation when found, null otherwise.
      */
     public static Operator get( String symbol ) {
-        //TODO 4 implement getOperator
-          throw new UnsupportedOperationException("method not implemented");
+        if(!operations.containsKey(symbol)){
+            throw new UnsupportedOperationException("method not implemented");
+        }
+        return operations.get(symbol);
     }
 
     /**
@@ -54,8 +70,8 @@ public enum Operator {
      * @return result get the computation.
      */
     public int compute( int a, int b ) {
-        //TODO 5 implement compute
-        return 0;
+
+        return computation.applyAsInt(a,b);
     }
 
     private String getSymbol() {
