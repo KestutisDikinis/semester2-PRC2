@@ -43,8 +43,4 @@ public class OperatorTest {
                 .as(message)
                 .isEqualTo(expected);
     }
-    @Test
-    void getQuestionMark(){
-        assertThatThrownBy(() ->Operator.get("?")).isExactlyInstanceOf(UnsupportedOperationException.class);
-    }
 }
