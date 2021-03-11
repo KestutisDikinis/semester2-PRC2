@@ -33,7 +33,7 @@ public enum Operator {
                 return operator;
             }
         }
-        throw new UnsupportedOperationException("method not implemented");
+        return null;
     }
 
     /**
