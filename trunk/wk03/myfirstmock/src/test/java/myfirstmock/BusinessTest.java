@@ -35,6 +35,7 @@ public class BusinessTest {
     @BeforeEach
     void setup() {
         //TODO setup business with mock
+        business = new Business(printer,scanner);
     }
 
     /**
@@ -44,7 +45,8 @@ public class BusinessTest {
     @Test
     public void doesItPrint() {
         //TODO use mocks to test the business
-        fail("does It Print completed, You know what that means.");
+        business.work("Kestutis");
+        verify(printer).printLn(anyString());
     }
 
     /**
@@ -53,7 +55,8 @@ public class BusinessTest {
     @Test
     void calculatePrintingCosts() {
         //TODO train the printer, verify it is used, assert that the business works
-        fail("test calculatePrintingCosts completed, you know what that means.");
+        business.computePrintingCost(8);
+        verify(printer).countCharactersPrinted();
     }
 
     /**
@@ -61,10 +64,12 @@ public class BusinessTest {
      */
     @Test
     void doesPrinterGetCorrectArgument() {
-        ArgumentCaptor<String> stringCaptor = ArgumentCaptor.forClass(
-                String.class );
+        ArgumentCaptor<String> stringCaptor = ArgumentCaptor.forClass(String.class );
+
         //TODO use the ArgumentCaptor to collect what printer receives and verify proper printing
-        fail("test doesPrinterGetCorrectArgument completed, you know what that means.");
+        business.work("Kestutis");
+        verify(printer).printLn(stringCaptor.capture());
+        assertThat(stringCaptor.getAllValues()).contains("Hello Kestutis");
     }
 
     /**
@@ -77,6 +82,5 @@ public class BusinessTest {
                 () -> {
             business.useScanner();
         } ).doesNotThrowAnyException();
-//        fail( "tUseScanner completed succesfully; you know what to do" );
     }
 }

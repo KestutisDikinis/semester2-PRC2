@@ -27,7 +27,7 @@ public class Business {
      */
     double computePrintingCost(double price){
         //TODO calculate price and return it
-        throw new java.lang.UnsupportedOperationException("work() Not supported yet.");
+        return price * printer.countCharactersPrinted();
     }
 
     /**
@@ -37,7 +37,8 @@ public class Business {
      */
     void work( String input ) {
         //TODO print "Hello" plus input
-        throw new java.lang.UnsupportedOperationException("work() Not supported yet."); 
+        printer.printLn("Hello " +input);
+
     }
 
     void useScanner() {
