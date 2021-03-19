@@ -44,8 +44,16 @@ class CashRegister implements ThrowingIntConsumer {
 
     @Override
     public void accept( int barcode ) throws UnknownBestBeforeException {
-        //TODO implement accept
-        
+        if(lastScanned != null){
+            throw new UnknownBestBeforeException("not good");
+        }else{
+            lastScanned  = salesService.lookupProduct(barcode);
+            lastSalesPrice = lastScanned.getPrice();
+            ui.displayProduct(lastScanned);
+            if(lastScanned.isPerishable()){
+                ui.displayCalendar();
+            }
+        }
     }
 
     /**
@@ -54,6 +62,7 @@ class CashRegister implements ThrowingIntConsumer {
      */
     public void submit() throws UnknownBestBeforeException {
         //TODO implement submit()
+
         
     }
 
