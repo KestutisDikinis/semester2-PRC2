@@ -2,6 +2,7 @@ package ps;
 
 import java.time.Clock;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.List;
 import static org.assertj.core.api.Assertions.*;
 import org.assertj.core.api.SoftAssertions;
@@ -47,6 +48,11 @@ public class CashRegisterTest {
         printer = mock( Printer.class );
         ui = mock( UI.class );
         salesService = mock( SalesService.class );
+        clock = Clock.fixed(
+                LocalDate.of(2020, 06, 24).atStartOfDay(ZoneId.systemDefault()).toInstant(),
+                ZoneId.systemDefault());
+
+        register = new CashRegister( clock, printer, ui, salesService );
     }
 
     /**
@@ -97,6 +103,11 @@ public class CashRegisterTest {
     @Test
     public void lookupandDisplayPerishableProduct() throws UnknownBestBeforeException {
         //TODO implement test lookupandDisplayPerishableProduct
+        when(salesService.lookupProduct(cheese.getBarcode())).thenReturn(cheese);
+
+        register.accept(cheese.getBarcode());
+        verify(ui).displayProduct(cheese);
+        verify(ui).displayCalendar();
         fail( "method lookupandDisplayPerishableProduct reached end. You know what to do." );
     }
 
