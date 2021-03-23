@@ -1,0 +1,30 @@
+package %1$s;
+
+import deconstructorregistry.Deconstructor;
+/**
+ * This is generated code. Do not edit, your changes will be lost.
+ */
+public class %2$sDeconstructor {
+    
+    /**
+     * The purpose of self registration is not being able to
+     * create new instances, other then by the class loader.
+     */
+    private %2$sDeconstructor() {
+    }
+
+    static {
+        Mapper.register( %2$s.class, new %2$sDeconstructor() );
+    }
+
+    /**
+     * Deconstruct an entity into an array.
+     * @param %2$s the victim 
+     */
+    @Override
+    public Object[] deconstruct(  %2$s %3$s ) {
+       return new Object[]{
+            %4$s
+       }; 
+    }
+}
