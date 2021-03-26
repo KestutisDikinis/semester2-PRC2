@@ -3,6 +3,7 @@ package ps;
 import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.aggregator.ArgumentsAccessor;
 import org.junit.jupiter.params.provider.CsvSource;
 
 import java.math.BigDecimal;
@@ -30,24 +31,26 @@ public class ProductTest {
     @CsvSource( value = {
         "'shortName','string', 'fyffes'",
         "'description','string','Fyffes Bananen'",
-        "'price','double',100.0",
+        "'price','bigDecimal',100",
         "'barcode','int',384736876",
         "'perishable','boolean',true"
     } )
-    void getters( String property, String type, String expectedValue ) {
+    void getters(ArgumentsAccessor args) {
         Product p = new Product( "fyffes", "Fyffes Bananen", BigDecimal.valueOf(100), 384736876, true );
+        String property = args.getString(0);
+        String  type = args.getString(1);
         switch ( type ) {
-            case "double":
-                assertThat( p ).extracting( property ).isEqualTo( Double.parseDouble( expectedValue ) );
+            case "bigDecimal":
+                assertThat( p ).extracting( property ).isEqualTo( BigDecimal.valueOf(args.getInteger(2)) );
                 break;
             case "boolean":
-                assertThat( p ).extracting( property ).isEqualTo( Boolean.parseBoolean( expectedValue ) );
+                assertThat( p ).extracting( property ).isEqualTo(args.getBoolean(2) );
                 break;
             case "string":
-                assertThat( p ).extracting( property ).isEqualTo( expectedValue );
+                assertThat( p ).extracting( property ).isEqualTo( args.getString(2) );
                 break;
             case "int":
-                assertThat( p ).extracting( property ).isEqualTo( Integer.parseInt(expectedValue) );
+                assertThat( p ).extracting( property ).isEqualTo( args.getInteger(2) );
         }
 //       fail( "test getters reached it's and. You will know what to do." );
 
