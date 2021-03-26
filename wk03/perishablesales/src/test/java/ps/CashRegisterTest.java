@@ -108,14 +108,6 @@ public class CashRegisterTest {
         verify(ui).displayCalendar();
     }
 
-    @Test
-    public void lookupandDisplayNonPerishableProduct() throws UnknownBestBeforeException {
-        when(salesService.lookupProduct(cheese.getBarcode())).thenReturn(lamp);
-        register.accept(lamp.getBarcode());
-        verify(ui).displayProduct(lamp);
-        verify(ui, never()).displayCalendar();
-    }
-
     /**
      * Scan a product, and press submit, then verify that the correct
      * salesRecord is sent to the SalesService. Use a non-perishable product.
