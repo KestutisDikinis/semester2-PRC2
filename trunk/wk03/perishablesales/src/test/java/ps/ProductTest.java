@@ -19,7 +19,7 @@ public class ProductTest {
     @Test
     void testProductToString() {
 
-        Product p = new Product( "elstar", "Elstar Appels, los", 100, 952134574, true );
+        Product p = new Product( "elstar", "Elstar Appels, los", 100.0, 952134574, true );
         assertThat( p.toString() ).contains( "elstar", "Elstar Appels, los", "100", "952134574", "perishable" );
 //        fail( "testProduct reached it's and. You will know what to do." );
     }
@@ -28,15 +28,15 @@ public class ProductTest {
     @CsvSource( value = {
         "'shortName','string', 'fyffes'",
         "'description','string','Fyffes Bananen'",
-        "'price','int',100",
+        "'price','double',100.0",
         "'barcode','int',384736876",
         "'perishable','boolean',true"
     } )
     void getters( String property, String type, String expectedValue ) {
-        Product p = new Product( "fyffes", "Fyffes Bananen", 100, 384736876, true );
+        Product p = new Product( "fyffes", "Fyffes Bananen", 100.0, 384736876, true );
         switch ( type ) {
-            case "int":
-                assertThat( p ).extracting( property ).isEqualTo( Integer.parseInt( expectedValue ) );
+            case "double":
+                assertThat( p ).extracting( property ).isEqualTo( Double.parseDouble( expectedValue ) );
                 break;
             case "boolean":
                 assertThat( p ).extracting( property ).isEqualTo( Boolean.parseBoolean( expectedValue ) );
@@ -44,6 +44,8 @@ public class ProductTest {
             case "string":
                 assertThat( p ).extracting( property ).isEqualTo( expectedValue );
                 break;
+            case "int":
+                assertThat( p ).extracting( property ).isEqualTo( Integer.parseInt(expectedValue) );
         }
 //       fail( "test getters reached it's and. You will know what to do." );
 
