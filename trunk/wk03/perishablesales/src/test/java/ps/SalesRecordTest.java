@@ -40,8 +40,8 @@ public class SalesRecordTest {
         "'salesPrice','double',65"
     } )
     void getters( String property, String type, String expectedValue ) {
-        LocalDate bb = LocalDate.of(2020,03,20);
-        LocalDate today = LocalDate.of(2020,03,19);
+        LocalDate bb = LocalDate.of(2020, 3,20);
+        LocalDate today = LocalDate.of(2020,3,19);
 
         SalesRecord sr = new SalesRecord( 384736876, bb, today, 100.0, 65.0 );
         switch ( type ) {
