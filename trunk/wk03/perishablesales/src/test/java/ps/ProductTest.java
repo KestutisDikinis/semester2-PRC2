@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+import java.math.BigDecimal;
+
 /**
  *
  * @author Pieter van den Hombergh {@code p.vandenhombergh@fontys.nl}
@@ -19,7 +21,7 @@ public class ProductTest {
     @Test
     void testProductToString() {
 
-        Product p = new Product( "elstar", "Elstar Appels, los", 100.0, 952134574, true );
+        Product p = new Product( "elstar", "Elstar Appels, los", BigDecimal.valueOf(100), 952134574, true );
         assertThat( p.toString() ).contains( "elstar", "Elstar Appels, los", "100", "952134574", "perishable" );
 //        fail( "testProduct reached it's and. You will know what to do." );
     }
@@ -33,7 +35,7 @@ public class ProductTest {
         "'perishable','boolean',true"
     } )
     void getters( String property, String type, String expectedValue ) {
-        Product p = new Product( "fyffes", "Fyffes Bananen", 100.0, 384736876, true );
+        Product p = new Product( "fyffes", "Fyffes Bananen", BigDecimal.valueOf(100), 384736876, true );
         switch ( type ) {
             case "double":
                 assertThat( p ).extracting( property ).isEqualTo( Double.parseDouble( expectedValue ) );

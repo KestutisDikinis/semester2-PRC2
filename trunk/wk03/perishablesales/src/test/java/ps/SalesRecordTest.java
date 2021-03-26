@@ -1,5 +1,6 @@
 package ps;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.fail;
@@ -22,7 +23,7 @@ public class SalesRecordTest {
     void testProductToString() {
         LocalDate bb = LocalDate.now().plusDays( 1 );
         LocalDate today = LocalDate.now();
-        SalesRecord p = new SalesRecord( 952134574, bb, today, 100.0, 65.0 );
+        SalesRecord p = new SalesRecord( 952134574, bb, today, BigDecimal.valueOf(100), BigDecimal.valueOf(65) );
         assertThat( p.toString() ).contains(
                 "952134574", bb.toString(),
                 today.toString(),
@@ -43,7 +44,7 @@ public class SalesRecordTest {
         LocalDate bb = LocalDate.of(2020, 3,20);
         LocalDate today = LocalDate.of(2020,3,19);
 
-        SalesRecord sr = new SalesRecord( 384736876, bb, today, 100.0, 65.0 );
+        SalesRecord sr = new SalesRecord( 384736876, bb, today, BigDecimal.valueOf(100), BigDecimal.valueOf(65) );
         switch ( type ) {
             case "int":
                 assertThat( sr ).extracting( property ).isEqualTo( Integer.parseInt(expectedValue) );

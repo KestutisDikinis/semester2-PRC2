@@ -1,5 +1,6 @@
 package ps;
 
+import java.math.BigDecimal;
 import java.time.Clock;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -29,9 +30,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith( MockitoExtension.class )
 public class CashRegisterTest {
 
-    Product lamp = new Product( "led lamp", "Led Lamp", 250.0, 1_234, false );
-    Product banana = new Product( "banana", "Bananas Fyffes", 150.0, 9_234, true );
-    Product cheese = new Product( "cheese", "Gouda 48+", 800.0, 7_687, true );
+    Product lamp = new Product( "led lamp", "Led Lamp", BigDecimal.valueOf(250), 1_234, false );
+    Product banana = new Product( "banana", "Bananas Fyffes", BigDecimal.valueOf(150), 9_234, true );
+    Product cheese = new Product( "cheese", "Gouda 48+", BigDecimal.valueOf(800), 7_687, true );
     Clock clock = Clock.systemDefaultZone();
 
     @Mock
@@ -140,22 +141,18 @@ public class CashRegisterTest {
     //@Disabled( "tiny steps please" )
     @CsvSource(
             value ={
-                    "'2021','3','26','97.5'",
-                    "'2021','3','24','52.5'",
+                    "2021-03-26, 97.50",
+                    "2021-03-24,52.50",
             }
     )
 
     @ParameterizedTest
-    public void priceReductionNearBestBefore(String year, String month, String day, String expected) throws OverdueBestBeforeException, UnknownBestBeforeException {
+    public void priceReductionNearBestBefore(LocalDate duoDate, BigDecimal decimal) throws OverdueBestBeforeException, UnknownBestBeforeException {
         //TODO implement priceReductionNearBestBefore
         when(salesService.lookupProduct(banana.getBarcode())).thenReturn(banana);
-        LocalDate bestBefore = LocalDate.of(
-                Integer.parseInt(year),
-                Integer.parseInt(month),
-                Integer.parseInt(day));
         register.accept(banana.getBarcode());
-        register.correctSalesPrice(bestBefore);
-        assertThat(register.getLastSalesPrice()).isEqualTo(Double.parseDouble(expected));
+        register.correctSalesPrice(duoDate);
+        assertThat(register.getLastSalesPrice()).isEqualTo(decimal);
     }
 
     /**
