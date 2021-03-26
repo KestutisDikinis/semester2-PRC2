@@ -28,9 +28,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith( MockitoExtension.class )
 public class CashRegisterTest {
 
-    Product lamp = new Product( "led lamp", "Led Lamp", 250, 1_234, false );
-    Product banana = new Product( "banana", "Bananas Fyffes", 150, 9_234, true );
-    Product cheese = new Product( "cheese", "Gouda 48+", 800, 7_687, true );
+    Product lamp = new Product( "led lamp", "Led Lamp", 250.0, 1_234, false );
+    Product banana = new Product( "banana", "Bananas Fyffes", 150.0, 9_234, true );
+    Product cheese = new Product( "cheese", "Gouda 48+", 800.0, 7_687, true );
     Clock clock = Clock.systemDefaultZone();
 
     @Mock
