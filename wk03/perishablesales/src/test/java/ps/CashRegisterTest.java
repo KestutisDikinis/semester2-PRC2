@@ -3,6 +3,7 @@ package ps;
 import java.time.Clock;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.HashMap;
 import java.util.List;
 import static org.assertj.core.api.Assertions.*;
 import org.assertj.core.api.SoftAssertions;
@@ -49,7 +50,7 @@ public class CashRegisterTest {
         ui = mock( UI.class );
         salesService = mock( SalesService.class );
         clock = Clock.fixed(
-                LocalDate.of(2020, 06, 24).atStartOfDay(ZoneId.systemDefault()).toInstant(),
+                LocalDate.of(2021, 03, 24).atStartOfDay(ZoneId.systemDefault()).toInstant(),
                 ZoneId.systemDefault());
 
         register = new CashRegister( clock, printer, ui, salesService );
@@ -89,7 +90,6 @@ public class CashRegisterTest {
         assertThat( displayedProducts ).contains( lamp );
 
         verify( ui, never() ).displayCalendar();
-//        fail( "test isProductLookedUpAndDisplayed reached it's and. You will know what to do." );
     }
 
     /**
@@ -102,13 +102,18 @@ public class CashRegisterTest {
     //@Disabled( "tiny steps please" )
     @Test
     public void lookupandDisplayPerishableProduct() throws UnknownBestBeforeException {
-        //TODO implement test lookupandDisplayPerishableProduct
         when(salesService.lookupProduct(cheese.getBarcode())).thenReturn(cheese);
-
         register.accept(cheese.getBarcode());
         verify(ui).displayProduct(cheese);
         verify(ui).displayCalendar();
-        fail( "method lookupandDisplayPerishableProduct reached end. You know what to do." );
+    }
+
+    @Test
+    public void lookupandDisplayNonPerishableProduct() throws UnknownBestBeforeException {
+        when(salesService.lookupProduct(cheese.getBarcode())).thenReturn(lamp);
+        register.accept(lamp.getBarcode());
+        verify(ui).displayProduct(lamp);
+        verify(ui, never()).displayCalendar();
     }
 
     /**
@@ -122,7 +127,19 @@ public class CashRegisterTest {
     @Test
     public void submitSold() throws UnknownBestBeforeException {
         //TODO implement test submitSold
-        fail( "method submitSold reached end. You know what to do." );
+        when(salesService.lookupProduct(lamp.getBarcode())).thenReturn(lamp);
+        SalesRecord expected = new SalesRecord(
+                lamp.getBarcode(),
+                null,
+                LocalDate.now(clock),
+                lamp.getPrice(),
+                lamp.getPrice());
+        expected.setQuantity(3);
+        for(int i = 0; i < 3; i++){
+            register.accept(lamp.getBarcode());
+            register.submit();
+        }
+
     }
 
     /**
@@ -131,9 +148,13 @@ public class CashRegisterTest {
      */
     //@Disabled( "tiny steps please" )
     @Test
-    public void priceReductionNearBestBefore() throws UnknownBestBeforeException {
+    public void priceReductionNearBestBefore() throws OverdueBestBeforeException, UnknownBestBeforeException {
         //TODO implement priceReductionNearBestBefore
-        fail( "method priceReductionNearBestBefore reached end. You know what to do." );
+        when(salesService.lookupProduct(banana.getBarcode())).thenReturn(banana);
+        LocalDate bestBefore = LocalDate.of(2021,03, 26);
+        register.accept(banana.getBarcode());
+        register.correctSalesPrice(bestBefore);
+        assertThat(register.getLastSalesPrice()).isEqualTo(97.5);
     }
 
     /**
@@ -151,9 +172,39 @@ public class CashRegisterTest {
      */
     //@Disabled( "tiny steps please" )
     @Test
-    public void printInProperOrder() throws UnknownBestBeforeException {
+    public void printInProperOrder() throws OverdueBestBeforeException, UnknownBestBeforeException {
         //TODO implement test printInProperOrder
-        fail( "method printInProperOrder reached end. You know what to do." );
+        when(salesService.lookupProduct(banana.getBarcode())).thenReturn(banana);
+        when(salesService.lookupProduct(lamp.getBarcode())).thenReturn(lamp);
+
+        HashMap<Integer, List<Integer>> dateMap = createBestBeforeDateMap();
+
+        LocalDate bestBefore;
+        for(int i = 0; i < 3; i++) {
+            bestBefore = LocalDate.of(
+                    dateMap.get(i).get(0),
+                    dateMap.get(i).get(1),
+                    dateMap.get(i).get(2)
+            );
+            for (int j = 0; j < 3; j++) {
+                register.accept(banana.getBarcode());
+                register.correctSalesPrice(bestBefore);
+                register.submit();
+                register.accept(lamp.getBarcode());
+                register.submit();
+            }
+        }
+        register.printReceipt();
+    }
+
+    private HashMap<Integer, List<Integer>> createBestBeforeDateMap() {
+        HashMap<Integer, List<Integer>> dateMap = new HashMap<>();
+
+        dateMap.put(1, List.of(2021, 03, 26));
+        dateMap.put(0, List.of(2021, 03, 28));
+        dateMap.put(2, List.of(2021, 03, 25));
+
+        return dateMap;
     }
 
 }

@@ -1,5 +1,6 @@
 package ps;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 /**
@@ -14,11 +15,11 @@ public class SalesRecord {
     private final int barcode;
     private final LocalDate bestBefore;
     private final LocalDate soldOn;
-    private final int labelPrice;
-    private final int salesPrice;
+    private final double labelPrice;
+    private final double salesPrice;
     private int quantity = 1;
 
-    public SalesRecord( int barcode, LocalDate bestBefore, LocalDate soldOn, int labelPrice, int salesPrice ) {
+    public SalesRecord(int barcode, LocalDate bestBefore, LocalDate soldOn, double labelPrice, double salesPrice ) {
         this.barcode = barcode;
         this.bestBefore = bestBefore;
         this.soldOn = soldOn;
@@ -38,11 +39,11 @@ public class SalesRecord {
         return soldOn;
     }
 
-    public int getLabelPrice() {
+    public double getLabelPrice() {
         return labelPrice;
     }
 
-    public int getSalesPrice() {
+    public double getSalesPrice() {
         return salesPrice;
     }
 
@@ -61,4 +62,7 @@ public class SalesRecord {
         this.quantity = quantity;
     }
 
+    public void addAnotherItem() {
+        this.quantity++;
+    }
 }
