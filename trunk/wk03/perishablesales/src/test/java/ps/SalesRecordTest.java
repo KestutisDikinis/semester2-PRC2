@@ -43,7 +43,7 @@ public class SalesRecordTest {
         LocalDate bb = LocalDate.of(2020,03,20);
         LocalDate today = LocalDate.of(2020,03,19);
 
-        SalesRecord sr = new SalesRecord( 384736876, bb, today, 100, 65 );
+        SalesRecord sr = new SalesRecord( 384736876, bb, today, 100.0, 65.0 );
         switch ( type ) {
             case "int":
                 assertThat( sr ).extracting( property ).isEqualTo( Integer.parseInt(expectedValue) );
