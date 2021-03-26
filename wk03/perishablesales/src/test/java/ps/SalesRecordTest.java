@@ -22,12 +22,12 @@ public class SalesRecordTest {
     void testProductToString() {
         LocalDate bb = LocalDate.now().plusDays( 1 );
         LocalDate today = LocalDate.now();
-        SalesRecord p = new SalesRecord( 952134574, bb, today, 100, 65 );
+        SalesRecord p = new SalesRecord( 952134574, bb, today, 100.0, 65.0 );
         assertThat( p.toString() ).contains(
                 "952134574", bb.toString(),
                 today.toString(),
-                Integer.toString( 100 ),
-                Integer.toString( 65 ) );
+                Double.toString( 100.0 ),
+                Double.toString( 65.0 ) );
 //        fail( "testProduct reached it's and. You will know what to do." );
     }
 
@@ -36,8 +36,8 @@ public class SalesRecordTest {
         "'barcode','int',384736876",
         "'bestBefore','date', '2020-03-20'",
         "'soldOn','date','2020-03-19'",
-        "'labelPrice','double',100.0",
-        "'salesPrice','double',65"
+        "'labelPrice','double','100.0'",
+        "'salesPrice','double','65.0'"
     } )
     void getters( String property, String type, String expectedValue ) {
         LocalDate bb = LocalDate.of(2020, 3,20);
