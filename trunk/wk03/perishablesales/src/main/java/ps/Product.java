@@ -1,5 +1,7 @@
 package ps;
 
+import java.math.BigDecimal;
+
 /**
  * Simple Product.
  *
@@ -9,11 +11,11 @@ public class Product {
 
     private final String shortName;
     private final String description;
-    private final int price;
+    private final double price;
     private final int barcode;
     private final boolean perishable;
 
-    public Product( String shortName, String description, int price, int barcode, boolean perisable ) {
+    public Product(String shortName, String description, double price, int barcode, boolean perisable ) {
         this.shortName = shortName;
         this.description = description;
         this.price = price;
@@ -29,7 +31,7 @@ public class Product {
         return description;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
