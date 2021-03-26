@@ -6,10 +6,11 @@ import java.time.ZoneId;
 import java.util.HashMap;
 import java.util.List;
 import static org.assertj.core.api.Assertions.*;
-import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import static org.mockito.Mockito.mock;
@@ -50,7 +51,7 @@ public class CashRegisterTest {
         ui = mock( UI.class );
         salesService = mock( SalesService.class );
         clock = Clock.fixed(
-                LocalDate.of(2021, 03, 24).atStartOfDay(ZoneId.systemDefault()).toInstant(),
+                LocalDate.of(2021, 3, 24).atStartOfDay(ZoneId.systemDefault()).toInstant(),
                 ZoneId.systemDefault());
 
         register = new CashRegister( clock, printer, ui, salesService );
@@ -78,9 +79,7 @@ public class CashRegisterTest {
         when( salesService.lookupProduct( lamp.getBarcode() ) ).thenReturn( lamp );
         ArgumentCaptor<Product> productCaptor = ArgumentCaptor.forClass( Product.class );
 
-        assertThatCode( () -> {
-            register.accept( lamp.getBarcode() );
-        } ).doesNotThrowAnyException();
+        assertThatCode( () -> register.accept( lamp.getBarcode() )).doesNotThrowAnyException();
 
         verify( salesService ).lookupProduct( lamp.getBarcode() );
 
@@ -139,14 +138,24 @@ public class CashRegisterTest {
      * when sold 2 days before best before.
      */
     //@Disabled( "tiny steps please" )
-    @Test
-    public void priceReductionNearBestBefore() throws OverdueBestBeforeException, UnknownBestBeforeException {
+    @CsvSource(
+            value ={
+                    "'2021','3','26','97.5'",
+                    "'2021','3','24','52.5'",
+            }
+    )
+
+    @ParameterizedTest
+    public void priceReductionNearBestBefore(String year, String month, String day, String expected) throws OverdueBestBeforeException, UnknownBestBeforeException {
         //TODO implement priceReductionNearBestBefore
         when(salesService.lookupProduct(banana.getBarcode())).thenReturn(banana);
-        LocalDate bestBefore = LocalDate.of(2021,03, 26);
+        LocalDate bestBefore = LocalDate.of(
+                Integer.parseInt(year),
+                Integer.parseInt(month),
+                Integer.parseInt(day));
         register.accept(banana.getBarcode());
         register.correctSalesPrice(bestBefore);
-        assertThat(register.getLastSalesPrice()).isEqualTo(97.5);
+        assertThat(register.getLastSalesPrice()).isEqualTo(Double.parseDouble(expected));
     }
 
     /**
@@ -192,9 +201,9 @@ public class CashRegisterTest {
     private HashMap<Integer, List<Integer>> createBestBeforeDateMap() {
         HashMap<Integer, List<Integer>> dateMap = new HashMap<>();
 
-        dateMap.put(1, List.of(2021, 03, 26));
-        dateMap.put(0, List.of(2021, 03, 28));
-        dateMap.put(2, List.of(2021, 03, 25));
+        dateMap.put(1, List.of(2021, 3, 26));
+        dateMap.put(0, List.of(2021, 3, 28));
+        dateMap.put(2, List.of(2021, 3, 25));
 
         return dateMap;
     }
