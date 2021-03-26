@@ -36,8 +36,8 @@ public class SalesRecordTest {
         "'barcode','int',384736876",
         "'bestBefore','date', '2020-03-20'",
         "'soldOn','date','2020-03-19'",
-        "'labelPrice','int',100",
-        "'salesPrice','int',65"
+        "'labelPrice','double',100.0",
+        "'salesPrice','double',65"
     } )
     void getters( String property, String type, String expectedValue ) {
         LocalDate bb = LocalDate.of(2020,03,20);
@@ -50,6 +50,9 @@ public class SalesRecordTest {
                 break;
             case "date":
                 assertThat( sr ).extracting( property ).isEqualTo( LocalDate.parse( expectedValue) );
+                break;
+            case "double":
+                assertThat( sr ).extracting( property ).isEqualTo( Double.parseDouble(expectedValue) );
                 break;
         }
 //       fail( "test getters reached it's and. You will know what to do." );
