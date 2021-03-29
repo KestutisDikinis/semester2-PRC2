@@ -151,7 +151,11 @@ public class CashRegisterTest {
         //TODO implement priceReductionNearBestBefore
         when(salesService.lookupProduct(banana.getBarcode())).thenReturn(banana);
         register.accept(banana.getBarcode());
-        register.correctSalesPrice(duoDate);
+        try {
+            register.correctSalesPrice(duoDate);
+        }catch (OverdueBestBeforeException ignored){
+
+        }
         assertThat(register.getLastSalesPrice()).isEqualTo(expected);
     }
 
