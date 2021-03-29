@@ -22,7 +22,7 @@ public class ProductTest {
     @Test
     void testProductToString() {
 
-        Product p = new Product( "elstar", "Elstar Appels, los", BigDecimal.valueOf(100), 952134574, true );
+        Product p = new Product( "elstar", "Elstar Appels, los", 100, 952134574, true );
         assertThat( p.toString() ).contains( "elstar", "Elstar Appels, los", "100", "952134574", "perishable" );
 //        fail( "testProduct reached it's and. You will know what to do." );
     }
@@ -31,18 +31,15 @@ public class ProductTest {
     @CsvSource( value = {
         "'shortName','string', 'fyffes'",
         "'description','string','Fyffes Bananen'",
-        "'price','bigDecimal',100",
+        "'price','int',100",
         "'barcode','int',384736876",
         "'perishable','boolean',true"
     } )
     void getters(ArgumentsAccessor args) {
-        Product p = new Product( "fyffes", "Fyffes Bananen", BigDecimal.valueOf(100), 384736876, true );
+        Product p = new Product( "fyffes", "Fyffes Bananen",100, 384736876, true );
         String property = args.getString(0);
         String  type = args.getString(1);
         switch ( type ) {
-            case "bigDecimal":
-                assertThat( p ).extracting( property ).isEqualTo( BigDecimal.valueOf(args.getInteger(2)) );
-                break;
             case "boolean":
                 assertThat( p ).extracting( property ).isEqualTo(args.getBoolean(2) );
                 break;

@@ -15,11 +15,11 @@ public class SalesRecord {
     private final int barcode;
     private final LocalDate bestBefore;
     private final LocalDate soldOn;
-    private final BigDecimal labelPrice;
-    private final BigDecimal salesPrice;
+    private final int labelPrice;
+    private final int salesPrice;
     private int quantity = 1;
 
-    public SalesRecord(int barcode, LocalDate bestBefore, LocalDate soldOn, BigDecimal labelPrice, BigDecimal salesPrice ) {
+    public SalesRecord(int barcode, LocalDate bestBefore, LocalDate soldOn, int labelPrice, int salesPrice ) {
         this.barcode = barcode;
         this.bestBefore = bestBefore;
         this.soldOn = soldOn;
@@ -39,11 +39,11 @@ public class SalesRecord {
         return soldOn;
     }
 
-    public BigDecimal getLabelPrice() {
+    public int getLabelPrice() {
         return labelPrice;
     }
 
-    public BigDecimal getSalesPrice() {
+    public int getSalesPrice() {
         return salesPrice;
     }
 
