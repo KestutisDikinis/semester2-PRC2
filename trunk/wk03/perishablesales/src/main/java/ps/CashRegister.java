@@ -23,11 +23,11 @@ class CashRegister implements ThrowingIntConsumer {
     private final UI ui;
     private final SalesService salesService;
     //End Solution::replacewith::// declare business fields
-    final Map<Product, LinkedHashMap<BigDecimal, SalesRecord>> perishable = new LinkedHashMap<>();
-    final Map<Product, LinkedHashMap<BigDecimal, SalesRecord>> nonPerishable = new LinkedHashMap<>();
+    final Map<Product, LinkedHashMap<Integer, SalesRecord>> perishable = new LinkedHashMap<>();
+    final Map<Product, LinkedHashMap<Integer, SalesRecord>> nonPerishable = new LinkedHashMap<>();
     private Product lastScanned = null;
     private LocalDate lastBBDate = null;
-    private BigDecimal lastSalesPrice = null;
+    private int lastSalesPrice = 0;
 
     //End Solution::replacewith::
     /**
@@ -96,9 +96,9 @@ class CashRegister implements ThrowingIntConsumer {
         if (daysBetween < 0) {
             throw new OverdueBestBeforeException();
         } else if (daysBetween == 0) {
-            lastSalesPrice = lastSalesPrice.subtract(lastSalesPrice.multiply(BigDecimal.valueOf(0.65)));
+            lastSalesPrice = (int) (lastSalesPrice*0.35);
         } else if (daysBetween <= 2) {
-            lastSalesPrice = lastSalesPrice.subtract(lastSalesPrice.multiply(BigDecimal.valueOf(0.35)));
+            lastSalesPrice =  (int) (lastSalesPrice*0.65);
         }
 
         
@@ -110,13 +110,13 @@ class CashRegister implements ThrowingIntConsumer {
      */
     public void printReceipt() {
         //TODO implement printReceipt
-        Map<Product, LinkedHashMap<BigDecimal, SalesRecord>> productMap;
+        Map<Product, LinkedHashMap<Integer, SalesRecord>> productMap;
         productMap = perishable;
         String currentReceiptLine;
         String shortName;
         for(int i = 0; i < 2; i++) {
             for (Product p : productMap.keySet()) {
-                for (BigDecimal price : productMap.get(p).keySet()) {
+                for (Integer price : productMap.get(p).keySet()) {
                     shortName = p.getShortName();
                     shortName = shortName.substring(0, 1).toUpperCase() + shortName.substring(1);
                     currentReceiptLine = "Name: " + shortName;
@@ -133,7 +133,7 @@ class CashRegister implements ThrowingIntConsumer {
 
     //TODO maybe helpers?
 
-    private void manageEntry(Map<Product, LinkedHashMap<BigDecimal, SalesRecord>> mapToReceiveAddition) {
+    private void manageEntry(Map<Product, LinkedHashMap<Integer, SalesRecord>> mapToReceiveAddition) {
         if (!mapToReceiveAddition.containsKey(lastScanned)) {
             constructNewMapEntry(mapToReceiveAddition, false);
         } else {
@@ -145,7 +145,7 @@ class CashRegister implements ThrowingIntConsumer {
         }
     }
 
-    private void constructNewMapEntry(Map<Product, LinkedHashMap<BigDecimal, SalesRecord>> mapToReceiveAddition, boolean containsKey) {
+    private void constructNewMapEntry(Map<Product, LinkedHashMap<Integer, SalesRecord>> mapToReceiveAddition, boolean containsKey) {
         SalesRecord tempRecord =  new SalesRecord(
                 lastScanned.getBarcode(),
                 lastBBDate,
@@ -154,7 +154,7 @@ class CashRegister implements ThrowingIntConsumer {
                 lastSalesPrice
         );
         if (!containsKey) {
-            LinkedHashMap<BigDecimal, SalesRecord> recordMap = new LinkedHashMap<>();
+            LinkedHashMap<Integer, SalesRecord> recordMap = new LinkedHashMap<>();
             recordMap.put(lastSalesPrice, tempRecord);
             mapToReceiveAddition.put(lastScanned, recordMap);
         } else {
@@ -162,13 +162,13 @@ class CashRegister implements ThrowingIntConsumer {
         }
     }
 
-    public BigDecimal getLastSalesPrice(){
+    public int getLastSalesPrice(){
         return lastSalesPrice;
     }
 
     private void resetLastProductFields(){
         this.lastScanned = null;
-        this.lastSalesPrice = null;
+        this.lastSalesPrice = 0;
         this.lastBBDate = null;
 
     }
