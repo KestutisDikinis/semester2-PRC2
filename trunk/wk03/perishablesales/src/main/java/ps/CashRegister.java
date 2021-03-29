@@ -87,15 +87,12 @@ class CashRegister implements ThrowingIntConsumer {
      *
      * @param bestBeforeDate
      */
-    public void correctSalesPrice( LocalDate bestBeforeDate ) throws OverdueBestBeforeException {
+    public void correctSalesPrice( LocalDate bestBeforeDate ) {
         //TODO implement correctSalesPrice
         LocalDate currentTime = LocalDate.now(clk);
         lastBBDate = bestBeforeDate;
         long daysBetween = DAYS.between(currentTime, bestBeforeDate);
-
-        if (daysBetween < 0) {
-            throw new OverdueBestBeforeException();
-        } else if (daysBetween == 0) {
+        if (daysBetween == 0) {
             lastSalesPrice = (int) (lastSalesPrice*0.35);
         } else if (daysBetween <= 2) {
             lastSalesPrice =  (int) (lastSalesPrice*0.65);

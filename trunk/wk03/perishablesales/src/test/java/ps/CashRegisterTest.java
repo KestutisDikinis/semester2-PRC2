@@ -147,15 +147,11 @@ public class CashRegisterTest {
     )
 
     @ParameterizedTest
-    public void priceReductionNearBestBefore(LocalDate duoDate, int expected) throws OverdueBestBeforeException, UnknownBestBeforeException {
+    public void priceReductionNearBestBefore(LocalDate duoDate, int expected) throws UnknownBestBeforeException {
         //TODO implement priceReductionNearBestBefore
         when(salesService.lookupProduct(banana.getBarcode())).thenReturn(banana);
         register.accept(banana.getBarcode());
-        try {
-            register.correctSalesPrice(duoDate);
-        }catch (OverdueBestBeforeException ignored){
-
-        }
+        register.correctSalesPrice(duoDate);
         assertThat(register.getLastSalesPrice()).isEqualTo(expected);
     }
 
