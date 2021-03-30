@@ -150,6 +150,7 @@ class CashRegister implements ThrowingIntConsumer {
                 lastScanned.getPrice(),
                 lastSalesPrice
         );
+        salesService.sold(tempRecord);
         if (!containsKey) {
             LinkedHashMap<Integer, SalesRecord> recordMap = new LinkedHashMap<>();
             recordMap.put(lastSalesPrice, tempRecord);
