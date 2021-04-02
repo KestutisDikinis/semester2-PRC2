@@ -11,11 +11,11 @@ public class Pair<P,Q> {
         this.elementQ = element2;
     }
 
-    public P getElementP() {
+    public P getP() {
         return elementP;
     }
 
-    public Q getElementQ() {
+    public Q getQ() {
         return elementQ;
     }
 

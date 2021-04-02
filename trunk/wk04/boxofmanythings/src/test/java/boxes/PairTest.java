@@ -21,8 +21,8 @@ class PairTest {
         // test Pair<String,Integer>
         Pair<String, Integer> p1 = new Pair<>("Kestutis",5);
         SoftAssertions.assertSoftly(softAssertions -> {
-            softAssertions.assertThat(p1.getElementP()).isEqualTo("Kestutis");
-            softAssertions.assertThat(p1.getElementQ()).isEqualTo(5);
+            softAssertions.assertThat(p1.getP()).isEqualTo("Kestutis");
+            softAssertions.assertThat(p1.getQ()).isEqualTo(5);
         });
     }
 
