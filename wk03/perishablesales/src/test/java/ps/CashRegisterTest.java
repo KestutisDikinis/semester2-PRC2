@@ -143,11 +143,12 @@ public class CashRegisterTest {
             value ={
                     "2021-03-26, 97",
                     "2021-03-24, 52",
+                    "2020-03-22, 0"
             }
     )
 
     @ParameterizedTest
-    public void priceReductionNearBestBefore(LocalDate duoDate, int expected) throws UnknownBestBeforeException, OverdueBestBeforeException {
+    public void priceReductionNearBestBefore(LocalDate duoDate, int expected) throws UnknownBestBeforeException {
         when(salesService.lookupProduct(banana.getBarcode())).thenReturn(banana);
         register.accept(banana.getBarcode());
         register.correctSalesPrice(duoDate);
