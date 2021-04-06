@@ -87,7 +87,7 @@ class CashRegister implements ThrowingIntConsumer {
      *
      * @param bestBeforeDate
      */
-    public void correctSalesPrice( LocalDate bestBeforeDate ) {
+    public void salesPrice(LocalDate bestBeforeDate ) {
         //TODO implement correctSalesPrice
         LocalDate currentTime = LocalDate.now(clk);
         lastBBDate = bestBeforeDate;
