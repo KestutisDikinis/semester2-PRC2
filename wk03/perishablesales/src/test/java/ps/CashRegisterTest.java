@@ -141,7 +141,7 @@ public class CashRegisterTest {
     //@Disabled( "tiny steps please" )
     @CsvSource(
             value ={
-                    "2021-03-26, 97",
+                    "2021-03-25, 97",
                     "2021-03-24, 52",
                     "2020-03-22, 0"
             }
