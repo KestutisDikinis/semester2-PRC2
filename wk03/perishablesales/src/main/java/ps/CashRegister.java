@@ -94,7 +94,7 @@ class CashRegister implements ThrowingIntConsumer {
         long daysBetween = DAYS.between(currentTime, bestBeforeDate);
         if (daysBetween == 0) {
             lastSalesPrice = (int) (lastSalesPrice*0.35);
-        } else if (daysBetween <= 2 && daysBetween >0) {
+        } else if (daysBetween == 1) {
             lastSalesPrice =  (int) (lastSalesPrice*0.65);
         } else if(daysBetween < 0){
             lastSalesPrice = 0;
