@@ -26,7 +26,7 @@ class CashRegister implements ThrowingIntConsumer {
     final Map<Product, LinkedHashMap<Integer, SalesRecord>> perishable = new LinkedHashMap<>();
     final Map<Product, LinkedHashMap<Integer, SalesRecord>> nonPerishable = new LinkedHashMap<>();
     private Product lastScanned = null;
-    private LocalDate lastBBDate = null;
+    private LocalDate lastBBDate = LocalDate.MAX;
     private int lastSalesPrice = 0;
 
     //End Solution::replacewith::
@@ -87,7 +87,7 @@ class CashRegister implements ThrowingIntConsumer {
      *
      * @param bestBeforeDate
      */
-    public void correctSalesPrice( LocalDate bestBeforeDate ) {
+    public void correctSalesPrice( LocalDate bestBeforeDate ) throws OverdueBestBeforeException {
         //TODO implement correctSalesPrice
         LocalDate currentTime = LocalDate.now(clk);
         lastBBDate = bestBeforeDate;
@@ -96,7 +96,10 @@ class CashRegister implements ThrowingIntConsumer {
             lastSalesPrice = (int) (lastSalesPrice*0.35);
         } else if (daysBetween <= 2) {
             lastSalesPrice =  (int) (lastSalesPrice*0.65);
+        } else if(daysBetween < 0){
+
         }
+        System.out.println(daysBetween);
         SalesRecord tempRecord =  new SalesRecord(
                 lastScanned.getBarcode(),
                 lastBBDate,
