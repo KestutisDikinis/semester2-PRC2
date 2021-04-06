@@ -1,6 +1,5 @@
 package ps;
 
-import java.math.BigDecimal;
 import java.time.Clock;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -150,7 +149,7 @@ public class CashRegisterTest {
     public void priceReductionNearBestBefore(LocalDate duoDate, int expected) throws UnknownBestBeforeException {
         when(salesService.lookupProduct(banana.getBarcode())).thenReturn(banana);
         register.accept(banana.getBarcode());
-        register.correctSalesPrice(duoDate);
+        register.salesPrice(duoDate);
         assertThat(register.getLastSalesPrice()).isEqualTo(expected);
     }
 
@@ -169,10 +168,11 @@ public class CashRegisterTest {
      */
     //@Disabled( "tiny steps please" )
     @Test
-    public void printInProperOrder() throws OverdueBestBeforeException, UnknownBestBeforeException {
+    public void printInProperOrder() throws UnknownBestBeforeException {
         //TODO implement test printInProperOrder
         when(salesService.lookupProduct(banana.getBarcode())).thenReturn(banana);
         when(salesService.lookupProduct(lamp.getBarcode())).thenReturn(lamp);
+        when(salesService.lookupProduct(cheese.getBarcode())).thenReturn(cheese);
 
         HashMap<Integer, List<Integer>> dateMap = createBestBeforeDateMap();
 
@@ -185,9 +185,12 @@ public class CashRegisterTest {
             );
             for (int j = 0; j < 3; j++) {
                 register.accept(banana.getBarcode());
-                register.correctSalesPrice(bestBefore);
+                register.salesPrice(bestBefore);
                 register.submit();
                 register.accept(lamp.getBarcode());
+                register.submit();
+                register.accept(cheese.getBarcode());
+                register.salesPrice(bestBefore);
                 register.submit();
             }
         }
