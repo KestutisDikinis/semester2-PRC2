@@ -97,7 +97,15 @@ class CashRegister implements ThrowingIntConsumer {
         } else if (daysBetween <= 2) {
             lastSalesPrice =  (int) (lastSalesPrice*0.65);
         }
-
+        SalesRecord tempRecord =  new SalesRecord(
+                lastScanned.getBarcode(),
+                lastBBDate,
+                LocalDate.now(clk),
+                lastScanned.getPrice(),
+                lastSalesPrice
+        );
+        //TODO submit entry to sales service??
+        salesService.sold(tempRecord);
         
     }
 
