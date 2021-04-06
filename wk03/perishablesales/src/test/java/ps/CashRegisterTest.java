@@ -142,7 +142,7 @@ public class CashRegisterTest {
     @CsvSource(
             value ={
                     "2021-03-26, 97",
-                    "2021-03-24,52",
+                    "2021-03-24, 52",
             }
     )
 
