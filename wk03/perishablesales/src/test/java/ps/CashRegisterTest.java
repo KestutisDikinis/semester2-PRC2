@@ -1,5 +1,6 @@
 package ps;
 
+import java.math.BigDecimal;
 import java.time.Clock;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -149,7 +150,7 @@ public class CashRegisterTest {
     public void priceReductionNearBestBefore(LocalDate duoDate, int expected) throws UnknownBestBeforeException {
         when(salesService.lookupProduct(banana.getBarcode())).thenReturn(banana);
         register.accept(banana.getBarcode());
-        register.salesPrice(duoDate);
+        register.correctSalesPrice(duoDate);
         assertThat(register.getLastSalesPrice()).isEqualTo(expected);
     }
 
@@ -185,12 +186,12 @@ public class CashRegisterTest {
             );
             for (int j = 0; j < 3; j++) {
                 register.accept(banana.getBarcode());
-                register.salesPrice(bestBefore);
+                register.correctSalesPrice(bestBefore);
                 register.submit();
                 register.accept(lamp.getBarcode());
                 register.submit();
                 register.accept(cheese.getBarcode());
-                register.salesPrice(bestBefore);
+                register.correctSalesPrice(bestBefore);
                 register.submit();
             }
         }
