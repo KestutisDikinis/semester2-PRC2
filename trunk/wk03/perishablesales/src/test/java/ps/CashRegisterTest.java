@@ -101,7 +101,7 @@ public class CashRegisterTest {
      */
     //@Disabled( "tiny steps please" )
     @Test
-    public void lookupandDisplayPerishableProduct() {
+    public void lookupandDisplayPerishableProduct() throws UnknownBestBeforeException {
         when(salesService.lookupProduct(cheese.getBarcode())).thenReturn(cheese);
         register.accept(cheese.getBarcode());
         verify(ui).displayProduct(cheese);
