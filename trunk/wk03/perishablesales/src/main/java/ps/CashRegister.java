@@ -46,12 +46,15 @@ class CashRegister implements ThrowingIntConsumer {
     }
 
     @Override
-    public void accept( int barcode ) {
+    public void accept( int barcode ) throws UnknownBestBeforeException {
         lastScanned  = salesService.lookupProduct(barcode);
         lastSalesPrice = lastScanned.getPrice();
         ui.displayProduct(lastScanned);
         if(lastScanned.isPerishable()) {
             ui.displayCalendar();
+        }
+        if(lastScanned.isPerishable() && lastBBDate == LocalDate.MAX){
+            throw new UnknownBestBeforeException("Not good");
         }
     }
 
@@ -83,13 +86,10 @@ class CashRegister implements ThrowingIntConsumer {
      *
      * @param bestBeforeDate
      */
-    public void correctSalesPrice( LocalDate bestBeforeDate ) throws UnknownBestBeforeException {
+    public void correctSalesPrice( LocalDate bestBeforeDate ) {
         //TODO implement correctSalesPrice
         LocalDate currentTime = LocalDate.now(clk);
         lastBBDate = bestBeforeDate;
-        if(lastScanned.isPerishable() && lastBBDate == LocalDate.MAX){
-            throw new UnknownBestBeforeException("Not good");
-        }
         long daysBetween = DAYS.between(currentTime, bestBeforeDate);
         if (daysBetween == 0) {
             lastSalesPrice = (int) (lastSalesPrice*0.35);
