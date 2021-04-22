@@ -47,7 +47,7 @@ class CashRegister implements ThrowingIntConsumer {
 
     @Override
     public void accept( int barcode ) throws UnknownBestBeforeException {
-        if(lastScanned != null){
+        if(lastBBDate == null){
             throw new UnknownBestBeforeException("not good");
         }else{
             lastScanned  = salesService.lookupProduct(barcode);
@@ -175,7 +175,7 @@ class CashRegister implements ThrowingIntConsumer {
     private void resetLastProductFields(){
         this.lastScanned = null;
         this.lastSalesPrice = 0;
-        this.lastBBDate = null;
+        this.lastBBDate = LocalDate.MAX;
 
     }
 
