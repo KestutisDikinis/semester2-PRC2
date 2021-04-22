@@ -99,7 +99,6 @@ class CashRegister implements ThrowingIntConsumer {
         } else if(daysBetween < 0){
             lastSalesPrice = 0;
         }
-        System.out.println(daysBetween);
         SalesRecord tempRecord =  new SalesRecord(
                 lastScanned.getBarcode(),
                 lastBBDate,
@@ -107,7 +106,6 @@ class CashRegister implements ThrowingIntConsumer {
                 lastScanned.getPrice(),
                 lastSalesPrice
         );
-        //TODO submit entry to sales service??
         salesService.sold(tempRecord);
         
     }
