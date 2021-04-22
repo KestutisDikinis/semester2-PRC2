@@ -170,7 +170,7 @@ public class CashRegisterTest {
      */
     //@Disabled( "tiny steps please" )
     @Test
-    public void printInProperOrder() throws UnknownBestBeforeException, OverdueBestBeforeException {
+    public void printInProperOrder() throws UnknownBestBeforeException {
         //TODO implement test printInProperOrder
         when(salesService.lookupProduct(banana.getBarcode())).thenReturn(banana);
         when(salesService.lookupProduct(lamp.getBarcode())).thenReturn(lamp);
@@ -190,6 +190,7 @@ public class CashRegisterTest {
                 register.correctSalesPrice(bestBefore);
                 register.submit();
                 register.accept(lamp.getBarcode());
+                register.correctSalesPrice(bestBefore);
                 register.submit();
                 register.accept(cheese.getBarcode());
                 register.correctSalesPrice(bestBefore);
