@@ -190,7 +190,6 @@ public class CashRegisterTest {
                 register.correctSalesPrice(bestBefore);
                 register.submit();
                 register.accept(lamp.getBarcode());
-                register.correctSalesPrice(bestBefore);
                 register.submit();
                 register.accept(cheese.getBarcode());
                 register.correctSalesPrice(bestBefore);
