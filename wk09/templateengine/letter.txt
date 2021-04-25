@@ -1,0 +1,7 @@
+Dear {{teacher}},
+
+We would like to complain about the modules {{mod}}.
+We learn to little and the examples are way to trivial.
+For instance this stuff with the \{{braces}} sucks big time.
+Kind regards, 
+The students.

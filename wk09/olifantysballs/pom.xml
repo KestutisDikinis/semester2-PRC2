@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <!-- sebipom contains various dependencies and plugin configurations  -->
+    <parent>
+        <groupId>nl.fontys.sebivenlo</groupId>
+        <artifactId>sebipom</artifactId>
+        <version>3.0.2</version>
+    </parent>
+    <groupId>olifantysballs</groupId>
+    <artifactId>olifantysballsmvn</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    <name>olifantysballs-modular :: G148</name>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <exec.mainClass>olifantysballs.OlifantysBallMachine</exec.mainClass>
+        <finalName>olifantysballs</finalName>
+        <pitTargetClasses>olifantysballs.**</pitTargetClasses>
+    </properties>
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <!-- add add-opens lines for all packages in your module that are tested.
+                        For testing it is fine to open your packages for the whole world, which includes
+                        e.g. junit, assertj, and mockito. 
+                        Also leave ${argLine} because it is set/used by the coverage plugin.
+                    -->
+                    <argLine> 
+                        ${argLine}
+                        --add-opens olifantysballs/client=ALL-UNNAMED
+                        --add-opens olifantysballs/olifantysballs=ALL-UNNAMED
+                    </argLine>
+                </configuration>    
+            </plugin>
+        </plugins>
+    </build>
+</project>
+
